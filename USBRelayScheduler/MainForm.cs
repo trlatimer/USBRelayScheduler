@@ -46,54 +46,62 @@ namespace USBRelayScheduler
             // TODO Add multithreading and lock here
             relayStatusTimer.Elapsed -= CheckRelayStatus;
 
-            if (InvokeRequired && !this.IsDisposed && !this.Disposing)
+            try
             {
-                this.Invoke(new MethodInvoker(delegate
+                if (InvokeRequired && !this.IsDisposed && !this.Disposing)
                 {
-                    if (relayDevice.GetRelayState(0))
+                    this.Invoke(new MethodInvoker(delegate
                     {
-                        buttonRelay1Status.Text = "ON";
-                        buttonRelay1Status.BackColor = Color.LimeGreen;
-                    }
-                    else
-                    {
-                        buttonRelay1Status.Text = "OFF";
-                        buttonRelay1Status.BackColor = Color.Gray;
-                    }
+                        if (relayDevice.GetRelayState(0))
+                        {
+                            buttonRelay1Status.Text = "ON";
+                            buttonRelay1Status.BackColor = Color.LimeGreen;
+                        }
+                        else
+                        {
+                            buttonRelay1Status.Text = "OFF";
+                            buttonRelay1Status.BackColor = Color.Gray;
+                        }
 
-                    if (relayDevice.GetRelayState(1))
-                    {
-                        buttonRelay2Status.Text = "ON";
-                        buttonRelay2Status.BackColor = Color.LimeGreen;
-                    }
-                    else
-                    {
-                        buttonRelay2Status.Text = "OFF";
-                        buttonRelay2Status.BackColor = Color.Gray;
-                    }
+                        if (relayDevice.GetRelayState(1))
+                        {
+                            buttonRelay2Status.Text = "ON";
+                            buttonRelay2Status.BackColor = Color.LimeGreen;
+                        }
+                        else
+                        {
+                            buttonRelay2Status.Text = "OFF";
+                            buttonRelay2Status.BackColor = Color.Gray;
+                        }
 
-                    if (relayDevice.GetRelayState(2))
-                    {
-                        buttonRelay3Status.Text = "ON";
-                        buttonRelay3Status.BackColor = Color.LimeGreen;
-                    }
-                    else
-                    {
-                        buttonRelay3Status.Text = "OFF";
-                        buttonRelay3Status.BackColor = Color.Gray;
-                    }
+                        if (relayDevice.GetRelayState(2))
+                        {
+                            buttonRelay3Status.Text = "ON";
+                            buttonRelay3Status.BackColor = Color.LimeGreen;
+                        }
+                        else
+                        {
+                            buttonRelay3Status.Text = "OFF";
+                            buttonRelay3Status.BackColor = Color.Gray;
+                        }
 
-                    if (relayDevice.GetRelayState(3))
-                    {
-                        buttonRelay4Status.Text = "ON";
-                        buttonRelay4Status.BackColor = Color.LimeGreen;
-                    }
-                    else
-                    {
-                        buttonRelay4Status.Text = "OFF";
-                        buttonRelay4Status.BackColor = Color.Gray;
-                    }
-                }));
+                        if (relayDevice.GetRelayState(3))
+                        {
+                            buttonRelay4Status.Text = "ON";
+                            buttonRelay4Status.BackColor = Color.LimeGreen;
+                        }
+                        else
+                        {
+                            buttonRelay4Status.Text = "OFF";
+                            buttonRelay4Status.BackColor = Color.Gray;
+                        }
+                    }));
+                }
+            }
+            catch (ObjectDisposedException ex)
+            {
+                relayStatusTimer.Stop();
+                Console.WriteLine("Tried to access disposed MainForm"); // TODO Find a better way to handle this than a Try/Catch
             }
 
             relayStatusTimer.Elapsed += CheckRelayStatus;
