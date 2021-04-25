@@ -357,7 +357,6 @@ namespace USBRelayScheduler
             this.Name = "MainForm";
             this.ShowIcon = false;
             this.Text = "CTS Relay Scheduler";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
