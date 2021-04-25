@@ -40,7 +40,7 @@ namespace USBRelayScheduler
             this.labelRelay2Name = new System.Windows.Forms.Label();
             this.labelRelay3Name = new System.Windows.Forms.Label();
             this.relayLabel4Name = new System.Windows.Forms.Label();
-            this.checkBoxRelayForceOn = new System.Windows.Forms.CheckBox();
+            this.checkBoxRelay1ForceOn = new System.Windows.Forms.CheckBox();
             this.buttonRelay1Schedule = new System.Windows.Forms.Button();
             this.buttonRelay2Schedule = new System.Windows.Forms.Button();
             this.checkBoxRelay2ForceOn = new System.Windows.Forms.CheckBox();
@@ -77,7 +77,7 @@ namespace USBRelayScheduler
             this.labelFormTitle.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelFormTitle.Location = new System.Drawing.Point(257, 45);
             this.labelFormTitle.Name = "labelFormTitle";
-            this.labelFormTitle.Size = new System.Drawing.Size(324, 46);
+            this.labelFormTitle.Size = new System.Drawing.Size(318, 45);
             this.labelFormTitle.TabIndex = 1;
             this.labelFormTitle.Text = "USB Relay Scheduler";
             // 
@@ -107,6 +107,7 @@ namespace USBRelayScheduler
             this.buttonChangeDeviceAddress.TabIndex = 4;
             this.buttonChangeDeviceAddress.Text = "Change";
             this.buttonChangeDeviceAddress.UseVisualStyleBackColor = true;
+            this.buttonChangeDeviceAddress.Click += new System.EventHandler(this.buttonChangeDeviceAddress_Click);
             // 
             // labelForceOn
             // 
@@ -172,15 +173,16 @@ namespace USBRelayScheduler
             this.relayLabel4Name.Text = "Relay 4:";
             this.relayLabel4Name.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // checkBoxRelayForceOn
+            // checkBoxRelay1ForceOn
             // 
-            this.checkBoxRelayForceOn.AutoSize = true;
-            this.checkBoxRelayForceOn.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxRelayForceOn.Location = new System.Drawing.Point(224, 192);
-            this.checkBoxRelayForceOn.Name = "checkBoxRelayForceOn";
-            this.checkBoxRelayForceOn.Size = new System.Drawing.Size(18, 17);
-            this.checkBoxRelayForceOn.TabIndex = 11;
-            this.checkBoxRelayForceOn.UseVisualStyleBackColor = true;
+            this.checkBoxRelay1ForceOn.AutoSize = true;
+            this.checkBoxRelay1ForceOn.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.checkBoxRelay1ForceOn.Location = new System.Drawing.Point(224, 192);
+            this.checkBoxRelay1ForceOn.Name = "checkBoxRelay1ForceOn";
+            this.checkBoxRelay1ForceOn.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxRelay1ForceOn.TabIndex = 11;
+            this.checkBoxRelay1ForceOn.UseVisualStyleBackColor = true;
+            this.checkBoxRelay1ForceOn.CheckedChanged += new System.EventHandler(this.checkBoxRelay1ForceOn_CheckedChanged);
             // 
             // buttonRelay1Schedule
             // 
@@ -211,6 +213,7 @@ namespace USBRelayScheduler
             this.checkBoxRelay2ForceOn.Size = new System.Drawing.Size(18, 17);
             this.checkBoxRelay2ForceOn.TabIndex = 14;
             this.checkBoxRelay2ForceOn.UseVisualStyleBackColor = true;
+            this.checkBoxRelay2ForceOn.CheckedChanged += new System.EventHandler(this.checkBoxRelay2ForceOn_CheckedChanged);
             // 
             // buttonRelay3Schedule
             // 
@@ -231,6 +234,7 @@ namespace USBRelayScheduler
             this.checkBox2.Size = new System.Drawing.Size(18, 17);
             this.checkBox2.TabIndex = 17;
             this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // buttonRelay4Schedule
             // 
@@ -251,6 +255,7 @@ namespace USBRelayScheduler
             this.checkBox4.Size = new System.Drawing.Size(18, 17);
             this.checkBox4.TabIndex = 20;
             this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
             // 
             // menuStrip1
             // 
@@ -340,7 +345,7 @@ namespace USBRelayScheduler
             this.Controls.Add(this.buttonRelay2Schedule);
             this.Controls.Add(this.checkBoxRelay2ForceOn);
             this.Controls.Add(this.buttonRelay1Schedule);
-            this.Controls.Add(this.checkBoxRelayForceOn);
+            this.Controls.Add(this.checkBoxRelay1ForceOn);
             this.Controls.Add(this.relayLabel4Name);
             this.Controls.Add(this.labelRelay3Name);
             this.Controls.Add(this.labelRelay2Name);
@@ -357,6 +362,8 @@ namespace USBRelayScheduler
             this.Name = "MainForm";
             this.ShowIcon = false;
             this.Text = "CTS Relay Scheduler";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -378,7 +385,7 @@ namespace USBRelayScheduler
         private System.Windows.Forms.Label labelRelay2Name;
         private System.Windows.Forms.Label labelRelay3Name;
         private System.Windows.Forms.Label relayLabel4Name;
-        private System.Windows.Forms.CheckBox checkBoxRelayForceOn;
+        private System.Windows.Forms.CheckBox checkBoxRelay1ForceOn;
         private System.Windows.Forms.Button buttonRelay1Schedule;
         private System.Windows.Forms.Button buttonRelay2Schedule;
         private System.Windows.Forms.CheckBox checkBoxRelay2ForceOn;

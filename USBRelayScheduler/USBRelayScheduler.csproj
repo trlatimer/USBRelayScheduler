@@ -4,11 +4,13 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="TctecUSB4">
-      <HintPath>..\libs\TctecUSB4.dll</HintPath>
+      <HintPath>..\..\..\..\Downloads\tctecUSB4_dll_2_6_0_0\TctecUSB4.dll</HintPath>
+      <Private>true</Private>
     </Reference>
   </ItemGroup>
 
@@ -33,6 +35,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="libs\FTD2XX.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="libs\TctecUSB4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
