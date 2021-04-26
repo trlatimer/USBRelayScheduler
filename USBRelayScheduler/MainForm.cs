@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+using USBRelayScheduler.Resources;
 
 namespace USBRelayScheduler
 {
@@ -144,7 +145,59 @@ namespace USBRelayScheduler
             relayStatusTimer = new System.Timers.Timer(10);
             relayStatusTimer.Elapsed += CheckRelayStatus;
             relayStatusTimer.Start();
+
+            labelRelay1Name.Text = Settings.Default.Relay1Name + ":";
+            labelRelay2Name.Text = Settings.Default.Relay2Name + ":";
+            labelRelay3Name.Text = Settings.Default.Relay3Name + ":";
+            labelRelay4Name.Text = Settings.Default.Relay4Name + ":";
+
+            menuTextBoxRelay1Name.Text = Settings.Default.Relay1Name;
+            menuTextBoxRelay2Name.Text = Settings.Default.Relay2Name;
+            menuTextBoxRelay3Name.Text = Settings.Default.Relay3Name;
+            menuTextBoxRelay4Name.Text = Settings.Default.Relay4Name;
+
+            menuTextBoxRelay1Name.LostFocus += MenuTextBoxRelay1Name_LostFocus;
+            menuTextBoxRelay2Name.LostFocus += MenuTextBoxRelay2Name_LostFocus;
+            menuTextBoxRelay3Name.LostFocus += MenuTextBoxRelay3Name_LostFocus;
+            menuTextBoxRelay4Name.LostFocus += MenuTextBoxRelay4Name_LostFocus;
+
         }
+
+        private void MenuTextBoxRelay1Name_LostFocus(object sender, EventArgs e)
+        {
+            HandleRelayNamechange(0);
+        }
+
+        private void MenuTextBoxRelay2Name_LostFocus(object sender, EventArgs e)
+        {
+            HandleRelayNamechange(1);
+        }
+
+        private void MenuTextBoxRelay3Name_LostFocus(object sender, EventArgs e)
+        {
+            HandleRelayNamechange(2);
+        }
+
+        private void MenuTextBoxRelay4Name_LostFocus(object sender, EventArgs e)
+        {
+            HandleRelayNamechange(3);
+        }
+
+        private void HandleRelayNamechange(int relayIndex)
+        {
+            if (relayIndex == 0) { Settings.Default.Relay1Name = menuTextBoxRelay1Name.Text; }
+            else if (relayIndex == 1) { Settings.Default.Relay2Name = menuTextBoxRelay2Name.Text; }
+            else if (relayIndex == 2) { Settings.Default.Relay3Name = menuTextBoxRelay3Name.Text; }
+            else if (relayIndex == 3) { Settings.Default.Relay4Name = menuTextBoxRelay4Name.Text; }
+
+            Settings.Default.Save();
+
+            labelRelay1Name.Text = Settings.Default.Relay1Name;
+            labelRelay2Name.Text = Settings.Default.Relay2Name;
+            labelRelay3Name.Text = Settings.Default.Relay3Name;
+            labelRelay4Name.Text = Settings.Default.Relay4Name;
+        }
+
 
         // TODO set relay names to be stored in settings and retrieved on load
         // TODO add edit feature for relay names

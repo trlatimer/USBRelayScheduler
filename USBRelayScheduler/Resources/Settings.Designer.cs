@@ -22,5 +22,53 @@ namespace USBRelayScheduler.Resources {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Relay 1")]
+        public string Relay1Name {
+            get {
+                return ((string)(this["Relay1Name"]));
+            }
+            set {
+                this["Relay1Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Relay2")]
+        public string Relay2Name {
+            get {
+                return ((string)(this["Relay2Name"]));
+            }
+            set {
+                this["Relay2Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Relay3")]
+        public string Relay3Name {
+            get {
+                return ((string)(this["Relay3Name"]));
+            }
+            set {
+                this["Relay3Name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Relay4")]
+        public string Relay4Name {
+            get {
+                return ((string)(this["Relay4Name"]));
+            }
+            set {
+                this["Relay4Name"] = value;
+            }
+        }
     }
 }

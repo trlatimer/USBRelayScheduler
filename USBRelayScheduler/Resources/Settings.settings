@@ -1,6 +1,18 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="USBRelayScheduler.Resources" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Relay1Name" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Relay 1</Value>
+    </Setting>
+    <Setting Name="Relay2Name" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Relay2</Value>
+    </Setting>
+    <Setting Name="Relay3Name" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Relay3</Value>
+    </Setting>
+    <Setting Name="Relay4Name" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Relay4</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

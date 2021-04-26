@@ -22,7 +22,7 @@ namespace USBRelayScheduler
             serialNumber = serialNum;
         }
 
-        // TODO Add timer to check schedule and state
+        // TODO Add timer to check schedule
 
         public bool GetRelayState(int relay)
         {
