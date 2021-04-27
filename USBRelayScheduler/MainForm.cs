@@ -44,7 +44,6 @@ namespace USBRelayScheduler
 
         private void CheckRelayStatus(Object source, System.Timers.ElapsedEventArgs e)
         {
-            // TODO Add multithreading and lock here
             relayStatusTimer.Elapsed -= CheckRelayStatus;
 
             try
@@ -108,11 +107,11 @@ namespace USBRelayScheduler
             relayStatusTimer.Elapsed += CheckRelayStatus;
         }
 
-        private void buttonChangeDeviceAddress_Click(object sender, EventArgs e)
+        private void buttonRefreshDeviceAddress_Click(object sender, EventArgs e)
         {
-            // TODO add check for serial number
-            // TODO dispose existing relayDevice and load new with serial number
-            // TODO convert textbox to combobox?
+            relayDevice = null;
+            relayDevice = new TctecUSBDevice();
+            textBoxDeviceAddress.Text = relayDevice.GetSerialNumber();
         }
 
         private void checkBoxRelay1ForceOn_CheckedChanged(object sender, EventArgs e)
@@ -198,10 +197,6 @@ namespace USBRelayScheduler
             labelRelay4Name.Text = Settings.Default.Relay4Name;
         }
 
-
-        // TODO set relay names to be stored in settings and retrieved on load
-        // TODO add edit feature for relay names
-        // TODO add handling for each control
         // TODO create schedule class and variables
     }
 }

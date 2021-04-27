@@ -33,7 +33,7 @@ namespace USBRelayScheduler
             this.labelFormTitle = new System.Windows.Forms.Label();
             this.labelDeviceAddress = new System.Windows.Forms.Label();
             this.textBoxDeviceAddress = new System.Windows.Forms.TextBox();
-            this.buttonChangeDeviceAddress = new System.Windows.Forms.Button();
+            this.buttonRefreshDeviceAddress = new System.Windows.Forms.Button();
             this.labelForceOn = new System.Windows.Forms.Label();
             this.labelRelayOn = new System.Windows.Forms.Label();
             this.labelRelay1Name = new System.Windows.Forms.Label();
@@ -102,16 +102,16 @@ namespace USBRelayScheduler
             this.textBoxDeviceAddress.Size = new System.Drawing.Size(176, 27);
             this.textBoxDeviceAddress.TabIndex = 3;
             // 
-            // buttonChangeDeviceAddress
+            // buttonRefreshDeviceAddress
             // 
-            this.buttonChangeDeviceAddress.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonChangeDeviceAddress.Location = new System.Drawing.Point(371, 102);
-            this.buttonChangeDeviceAddress.Name = "buttonChangeDeviceAddress";
-            this.buttonChangeDeviceAddress.Size = new System.Drawing.Size(102, 35);
-            this.buttonChangeDeviceAddress.TabIndex = 4;
-            this.buttonChangeDeviceAddress.Text = "Change";
-            this.buttonChangeDeviceAddress.UseVisualStyleBackColor = true;
-            this.buttonChangeDeviceAddress.Click += new System.EventHandler(this.buttonChangeDeviceAddress_Click);
+            this.buttonRefreshDeviceAddress.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonRefreshDeviceAddress.Location = new System.Drawing.Point(371, 102);
+            this.buttonRefreshDeviceAddress.Name = "buttonRefreshDeviceAddress";
+            this.buttonRefreshDeviceAddress.Size = new System.Drawing.Size(102, 27);
+            this.buttonRefreshDeviceAddress.TabIndex = 4;
+            this.buttonRefreshDeviceAddress.Text = "Refresh";
+            this.buttonRefreshDeviceAddress.UseVisualStyleBackColor = true;
+            this.buttonRefreshDeviceAddress.Click += new System.EventHandler(this.buttonRefreshDeviceAddress_Click);
             // 
             // labelForceOn
             // 
@@ -385,7 +385,7 @@ namespace USBRelayScheduler
             this.Controls.Add(this.labelRelay1Name);
             this.Controls.Add(this.labelRelayOn);
             this.Controls.Add(this.labelForceOn);
-            this.Controls.Add(this.buttonChangeDeviceAddress);
+            this.Controls.Add(this.buttonRefreshDeviceAddress);
             this.Controls.Add(this.textBoxDeviceAddress);
             this.Controls.Add(this.labelDeviceAddress);
             this.Controls.Add(this.labelFormTitle);
@@ -438,6 +438,7 @@ namespace USBRelayScheduler
         private System.Windows.Forms.ToolStripTextBox menuTextBoxRelay2Name;
         private System.Windows.Forms.ToolStripTextBox menuTextBoxRelay3Name;
         private System.Windows.Forms.ToolStripTextBox menuTextBoxRelay4Name;
+        private System.Windows.Forms.Button buttonRefreshDeviceAddress;
     }
 }
 
