@@ -11,7 +11,7 @@ namespace USBRelayScheduler
 {
     public partial class RelaySetupForm : Form
     {
-        int currentRealy = 0;
+        int currentRelay = 0;
 
         public RelaySetupForm()
         {
@@ -21,7 +21,7 @@ namespace USBRelayScheduler
         public RelaySetupForm(int relay)
         {
             InitializeComponent();
-            currentRealy = relay;
+            currentRelay = relay;
             PopulateFields(relay);
         }
 
@@ -43,6 +43,11 @@ namespace USBRelayScheduler
                 case 4:
                     selectedSchedule = Settings.Default.Relay4Schedule;
                     break;
+            }
+
+            if (selectedSchedule == null)
+            {
+                selectedSchedule = new RelaySchedule();
             }
 
             checkBoxEnableMonday.Checked = selectedSchedule.schedules[0].Enabled;
@@ -110,15 +115,50 @@ namespace USBRelayScheduler
             return true;
         }
 
+        private void SaveSchedule()
+        {
+            RelaySchedule tempSchedule = new RelaySchedule();
+            tempSchedule.SetSchedule(0, checkBoxEnableMonday.Checked, dateTimePickerMondayStart.Value, dateTimePickerMondayEnd.Value);
+            tempSchedule.SetSchedule(1, checkBoxEnableTuesday.Checked, dateTimePickerTuesdayStart.Value, dateTimePickerTuesdayEnd.Value);
+            tempSchedule.SetSchedule(2, checkBoxEnableWednesday.Checked, dateTimePickerWednesdayStart.Value, dateTimePickerWednesdayEnd.Value);
+            tempSchedule.SetSchedule(3, checkBoxEnableThursday.Checked, dateTimePickerThursdayStart.Value, dateTimePickerThursdayEnd.Value);
+            tempSchedule.SetSchedule(4, checkBoxEnableFriday.Checked, dateTimePickerFridayStart.Value, dateTimePickerFridayEnd.Value);
+            tempSchedule.SetSchedule(5, checkBoxEnableSaturday.Checked, dateTimePickerSaturdayStart.Value, dateTimePickerSaturdayEnd.Value);
+            tempSchedule.SetSchedule(6, checkBoxEnableSunday.Checked, dateTimePickerSundayStart.Value, dateTimePickerSundayEnd.Value);
+
+            switch (currentRelay)
+            {
+                case 0:
+                    Settings.Default.Relay1Schedule = tempSchedule;
+                    break;
+                case 1:
+                    Settings.Default.Relay2Schedule = tempSchedule;
+                    break;
+                case 2:
+                    Settings.Default.Relay3Schedule = tempSchedule;
+                    break;
+                case 4:
+                    Settings.Default.Relay4Schedule = tempSchedule;
+                    break;
+            }
+
+            Settings.Default.Save();
+        }
+
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            ValidateForm();
-            DialogResult = DialogResult.OK;
+            if (ValidateForm())
+            {
+                SaveSchedule();
+                DialogResult = DialogResult.OK;
+                this.Close();
+            }
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
+            this.Close();
         }
     }
 }

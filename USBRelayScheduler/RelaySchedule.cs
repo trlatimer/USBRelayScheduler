@@ -10,6 +10,9 @@ namespace USBRelayScheduler
     [Serializable]
     public class RelaySchedule
     {
+        private static DateTime MinDateValue = DateTime.Parse("01/01/1973 12:00:00 AM");
+        private static DateTime MaxDateValue = DateTime.Parse("12/31/9997 11:59:59 PM");
+
         // Indices map to days - Monday = 0, Sunday = 6;
         public Schedule[] schedules;
 
@@ -17,13 +20,13 @@ namespace USBRelayScheduler
         {
             schedules = new Schedule[7]
             {
-                new Schedule(false, DateTime.MinValue, DateTime.MaxValue),
-                new Schedule(false, DateTime.MinValue, DateTime.MaxValue),
-                new Schedule(false, DateTime.MinValue, DateTime.MaxValue),
-                new Schedule(false, DateTime.MinValue, DateTime.MaxValue),
-                new Schedule(false, DateTime.MinValue, DateTime.MaxValue),
-                new Schedule(false, DateTime.MinValue, DateTime.MaxValue),
-                new Schedule(false, DateTime.MinValue, DateTime.MaxValue)
+                new Schedule(false, MinDateValue, MaxDateValue),
+                new Schedule(false, MinDateValue, MaxDateValue),
+                new Schedule(false, MinDateValue, MaxDateValue),
+                new Schedule(false, MinDateValue, MaxDateValue),
+                new Schedule(false, MinDateValue, MaxDateValue),
+                new Schedule(false, MinDateValue, MaxDateValue),
+                new Schedule(false, MinDateValue,MaxDateValue)
             };
         }
 
