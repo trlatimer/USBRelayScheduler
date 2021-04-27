@@ -12,6 +12,7 @@ namespace USBRelayScheduler
         private string serialNumber;
         private bool[] currentRelayStates = new bool[] {false, false, false, false };
         private RelaySchedule[] relaySchedules;
+        public Timer relayScheduleTimer;
 
         private readonly byte[] RELAYBYTES = { 0x01, 0x02, 0x04, 0x08 };
 
@@ -28,7 +29,8 @@ namespace USBRelayScheduler
             try
             {
                 serialNumber = TctecUSB4.TctecUSB4.getSerialNumbers()[0].ToString();
-            } catch(ArgumentOutOfRangeException ex)
+            }
+            catch (ArgumentOutOfRangeException ex)
             {
                 MessageBox.Show("Unable to find a Tctec USB Relay device, please reconnect and try again.", "No Devices", MessageBoxButtons.OK);
                 Console.WriteLine("Unable to locate device, ex: " + ex.Message);
@@ -36,14 +38,13 @@ namespace USBRelayScheduler
             }
 
             LoadSchedules();
+            StartScheduleTimer();
         }
 
         public TctecUSBDevice(string serialNum)
         {
             serialNumber = serialNum;
         }
-
-        // TODO Add timer to check schedule
 
         public bool GetRelayState(int relay)
         {
@@ -85,6 +86,52 @@ namespace USBRelayScheduler
             {
                 relaySchedules[3] = Settings.Default.Relay4Schedule;
             }
+        }
+
+        private void StartScheduleTimer()
+        {
+            relayScheduleTimer = new Timer();
+            relayScheduleTimer.Interval = 10000; // Every 10 seconds
+            relayScheduleTimer.Enabled = true;
+            relayScheduleTimer.Tick += RelayScheduleTimer_Tick;
+            relayScheduleTimer.Start();
+        }
+
+        private void CheckRelaySchedules()
+        {
+            TimeSpan currentTime = DateTime.Now.TimeOfDay;
+            int currentDay = (int)DateTime.Now.DayOfWeek - 1;
+            if (currentDay == -1) { currentDay = 6; } // Account for index mismatch if Sunday
+
+            List<RelaySchedule> relaySchedules = new List<RelaySchedule>();
+            relaySchedules.Add(Settings.Default.Relay1Schedule);
+            relaySchedules.Add(Settings.Default.Relay2Schedule);
+            relaySchedules.Add(Settings.Default.Relay3Schedule);
+            relaySchedules.Add(Settings.Default.Relay4Schedule);
+
+            for (int i = 0; i <= 3; i++)
+            {
+                if (relaySchedules[i] == null || relaySchedules[i].schedules[currentDay] == null) { continue; }
+
+                if (relaySchedules[i].schedules[currentDay].Enabled)
+                {
+                    if (currentTime == relaySchedules[i].schedules[currentDay].StartTime.TimeOfDay && !GetRelayState(i))
+                    {
+                        SetRelayOn(i);
+                    }
+                    else if (currentTime == relaySchedules[i].schedules[currentDay].EndTime.TimeOfDay && GetRelayState(i))
+                    {
+                        SetRelayOff(i);
+                    }
+                }
+            }
+        }
+
+        private void RelayScheduleTimer_Tick(object sender, EventArgs e)
+        {
+            relayScheduleTimer.Tick -= RelayScheduleTimer_Tick;
+            CheckRelaySchedules();
+            relayScheduleTimer.Tick += RelayScheduleTimer_Tick;
         }
     }
 }
