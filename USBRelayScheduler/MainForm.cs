@@ -101,7 +101,7 @@ namespace USBRelayScheduler
             catch (ObjectDisposedException ex)
             {
                 relayStatusTimer.Stop();
-                Console.WriteLine("Tried to access disposed MainForm"); // TODO Find a better way to handle this than a Try/Catch
+                Console.WriteLine("Tried to access disposed MainForm, ex: " + ex.Message); // TODO Find a better way to handle this than a Try/Catch
             }
 
             relayStatusTimer.Elapsed += CheckRelayStatus;
@@ -197,6 +197,44 @@ namespace USBRelayScheduler
             labelRelay4Name.Text = Settings.Default.Relay4Name;
         }
 
-        // TODO create schedule class and variables
+        private void buttonRelay1Schedule_Click(object sender, EventArgs e)
+        {
+            RelaySetupForm relaySetupForm = new RelaySetupForm(0);
+
+            if (relaySetupForm.ShowDialog(this) == DialogResult.OK)
+            {
+                relayDevice.LoadSchedules();
+            }
+        }
+
+        private void buttonRelay2Schedule_Click(object sender, EventArgs e)
+        {
+            RelaySetupForm relaySetupForm = new RelaySetupForm(1);
+
+            if (relaySetupForm.ShowDialog(this) == DialogResult.OK)
+            {
+                relayDevice.LoadSchedules();
+            }
+        }
+
+        private void buttonRelay3Schedule_Click(object sender, EventArgs e)
+        {
+            RelaySetupForm relaySetupForm = new RelaySetupForm(2);
+
+            if (relaySetupForm.ShowDialog(this) == DialogResult.OK)
+            {
+                relayDevice.LoadSchedules();
+            }
+        }
+
+        private void buttonRelay4Schedule_Click(object sender, EventArgs e)
+        {
+            RelaySetupForm relaySetupForm = new RelaySetupForm(3);
+
+            if (relaySetupForm.ShowDialog(this) == DialogResult.OK)
+            {
+                relayDevice.LoadSchedules();
+            }
+        }
     }
 }

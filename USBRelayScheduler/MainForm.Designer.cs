@@ -197,6 +197,7 @@ namespace USBRelayScheduler
             this.buttonRelay1Schedule.TabIndex = 13;
             this.buttonRelay1Schedule.Text = "Schedule...";
             this.buttonRelay1Schedule.UseVisualStyleBackColor = true;
+            this.buttonRelay1Schedule.Click += new System.EventHandler(this.buttonRelay1Schedule_Click);
             // 
             // buttonRelay2Schedule
             // 
@@ -207,6 +208,7 @@ namespace USBRelayScheduler
             this.buttonRelay2Schedule.TabIndex = 16;
             this.buttonRelay2Schedule.Text = "Schedule...";
             this.buttonRelay2Schedule.UseVisualStyleBackColor = true;
+            this.buttonRelay2Schedule.Click += new System.EventHandler(this.buttonRelay2Schedule_Click);
             // 
             // checkBoxRelay2ForceOn
             // 
@@ -228,6 +230,7 @@ namespace USBRelayScheduler
             this.buttonRelay3Schedule.TabIndex = 19;
             this.buttonRelay3Schedule.Text = "Schedule...";
             this.buttonRelay3Schedule.UseVisualStyleBackColor = true;
+            this.buttonRelay3Schedule.Click += new System.EventHandler(this.buttonRelay3Schedule_Click);
             // 
             // checkBox2
             // 
@@ -249,6 +252,7 @@ namespace USBRelayScheduler
             this.buttonRelay4Schedule.TabIndex = 22;
             this.buttonRelay4Schedule.Text = "Schedule...";
             this.buttonRelay4Schedule.UseVisualStyleBackColor = true;
+            this.buttonRelay4Schedule.Click += new System.EventHandler(this.buttonRelay4Schedule_Click);
             // 
             // checkBox4
             // 
@@ -411,7 +415,6 @@ namespace USBRelayScheduler
         private System.Windows.Forms.Label labelFormTitle;
         private System.Windows.Forms.Label labelDeviceAddress;
         private System.Windows.Forms.TextBox textBoxDeviceAddress;
-        private System.Windows.Forms.Button buttonChangeDeviceAddress;
         private System.Windows.Forms.Label labelForceOn;
         private System.Windows.Forms.Label labelRelayOn;
         private System.Windows.Forms.Label labelRelay1Name;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using TctecUSB4;
+using USBRelayScheduler.Resources;
 
 namespace USBRelayScheduler
 {
@@ -30,7 +31,11 @@ namespace USBRelayScheduler
             } catch(ArgumentOutOfRangeException ex)
             {
                 MessageBox.Show("Unable to find a Tctec USB Relay device, please reconnect and try again.", "No Devices", MessageBoxButtons.OK);
+                Console.WriteLine("Unable to locate device, ex: " + ex.Message);
+                return;
             }
+
+            LoadSchedules();
         }
 
         public TctecUSBDevice(string serialNum)
@@ -60,6 +65,26 @@ namespace USBRelayScheduler
         {
             TctecUSB4.TctecUSB4.setBits(serialNumber, RELAYBYTES[relay], false);
             currentRelayStates[relay] = false;
+        }
+
+        public void LoadSchedules()
+        {
+            if (Settings.Default.Relay1Schedule != null)
+            {
+                relaySchedules[0] = Settings.Default.Relay1Schedule;
+            }
+            if (Settings.Default.Relay2Schedule != null)
+            {
+                relaySchedules[1] = Settings.Default.Relay2Schedule;
+            }
+            if (Settings.Default.Relay3Schedule != null)
+            {
+                relaySchedules[2] = Settings.Default.Relay3Schedule;
+            }
+            if (Settings.Default.Relay4Schedule != null)
+            {
+                relaySchedules[3] = Settings.Default.Relay4Schedule;
+            }
         }
     }
 }

@@ -387,6 +387,7 @@ namespace USBRelayScheduler
             this.buttonCancel.TabIndex = 34;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // buttonSave
             // 
@@ -396,6 +397,7 @@ namespace USBRelayScheduler
             this.buttonSave.TabIndex = 35;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // RelaySetupForm
             // 
