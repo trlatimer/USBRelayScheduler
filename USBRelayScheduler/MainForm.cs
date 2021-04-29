@@ -200,41 +200,25 @@ namespace USBRelayScheduler
         private void buttonRelay1Schedule_Click(object sender, EventArgs e)
         {
             RelaySetupForm relaySetupForm = new RelaySetupForm(0);
-
-            if (relaySetupForm.ShowDialog(this) == DialogResult.OK)
-            {
-                relayDevice.LoadSchedules();
-            }
+            relaySetupForm.Show();
         }
 
         private void buttonRelay2Schedule_Click(object sender, EventArgs e)
         {
             RelaySetupForm relaySetupForm = new RelaySetupForm(1);
-
-            if (relaySetupForm.ShowDialog(this) == DialogResult.OK)
-            {
-                relayDevice.LoadSchedules();
-            }
+            relaySetupForm.Show();
         }
 
         private void buttonRelay3Schedule_Click(object sender, EventArgs e)
         {
             RelaySetupForm relaySetupForm = new RelaySetupForm(2);
-
-            if (relaySetupForm.ShowDialog(this) == DialogResult.OK)
-            {
-                relayDevice.LoadSchedules();
-            }
+            relaySetupForm.Show();
         }
 
         private void buttonRelay4Schedule_Click(object sender, EventArgs e)
         {
             RelaySetupForm relaySetupForm = new RelaySetupForm(3);
-
-            if (relaySetupForm.ShowDialog(this) == DialogResult.OK)
-            {
-                relayDevice.LoadSchedules();
-            }
+            relaySetupForm.Show();
         }
     }
 }

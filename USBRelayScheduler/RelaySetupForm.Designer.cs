@@ -72,16 +72,16 @@ namespace USBRelayScheduler
             this.labelRelayName.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelRelayName.Location = new System.Drawing.Point(13, 13);
             this.labelRelayName.Name = "labelRelayName";
-            this.labelRelayName.Size = new System.Drawing.Size(90, 32);
+            this.labelRelayName.Size = new System.Drawing.Size(112, 41);
             this.labelRelayName.TabIndex = 0;
             this.labelRelayName.Text = "Relay 1";
             // 
             // checkBoxApplySchedule
             // 
             this.checkBoxApplySchedule.AutoSize = true;
-            this.checkBoxApplySchedule.Location = new System.Drawing.Point(224, 21);
+            this.checkBoxApplySchedule.Location = new System.Drawing.Point(230, 25);
             this.checkBoxApplySchedule.Name = "checkBoxApplySchedule";
-            this.checkBoxApplySchedule.Size = new System.Drawing.Size(177, 24);
+            this.checkBoxApplySchedule.Size = new System.Drawing.Size(212, 29);
             this.checkBoxApplySchedule.TabIndex = 1;
             this.checkBoxApplySchedule.Text = "Apply to All Schedules";
             this.checkBoxApplySchedule.UseVisualStyleBackColor = true;
@@ -91,25 +91,25 @@ namespace USBRelayScheduler
             this.labelEnable.AutoSize = true;
             this.labelEnable.Location = new System.Drawing.Point(109, 65);
             this.labelEnable.Name = "labelEnable";
-            this.labelEnable.Size = new System.Drawing.Size(54, 20);
+            this.labelEnable.Size = new System.Drawing.Size(64, 25);
             this.labelEnable.TabIndex = 3;
             this.labelEnable.Text = "Enable";
             // 
             // labelStart
             // 
             this.labelStart.AutoSize = true;
-            this.labelStart.Location = new System.Drawing.Point(197, 65);
+            this.labelStart.Location = new System.Drawing.Point(199, 65);
             this.labelStart.Name = "labelStart";
-            this.labelStart.Size = new System.Drawing.Size(77, 20);
+            this.labelStart.Size = new System.Drawing.Size(91, 25);
             this.labelStart.TabIndex = 4;
             this.labelStart.Text = "Start Time";
             // 
             // labelEnd
             // 
             this.labelEnd.AutoSize = true;
-            this.labelEnd.Location = new System.Drawing.Point(321, 65);
+            this.labelEnd.Location = new System.Drawing.Point(336, 65);
             this.labelEnd.Name = "labelEnd";
-            this.labelEnd.Size = new System.Drawing.Size(71, 20);
+            this.labelEnd.Size = new System.Drawing.Size(85, 25);
             this.labelEnd.TabIndex = 5;
             this.labelEnd.Text = "End Time";
             // 
@@ -118,16 +118,16 @@ namespace USBRelayScheduler
             this.labelMonday.AutoSize = true;
             this.labelMonday.Location = new System.Drawing.Point(32, 98);
             this.labelMonday.Name = "labelMonday";
-            this.labelMonday.Size = new System.Drawing.Size(63, 20);
+            this.labelMonday.Size = new System.Drawing.Size(78, 25);
             this.labelMonday.TabIndex = 6;
             this.labelMonday.Text = "Monday";
             // 
             // checkBoxEnableMonday
             // 
             this.checkBoxEnableMonday.AutoSize = true;
-            this.checkBoxEnableMonday.Location = new System.Drawing.Point(129, 101);
+            this.checkBoxEnableMonday.Location = new System.Drawing.Point(133, 101);
             this.checkBoxEnableMonday.Name = "checkBoxEnableMonday";
-            this.checkBoxEnableMonday.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxEnableMonday.Size = new System.Drawing.Size(18, 17);
             this.checkBoxEnableMonday.TabIndex = 7;
             this.checkBoxEnableMonday.UseVisualStyleBackColor = true;
             // 
@@ -138,27 +138,27 @@ namespace USBRelayScheduler
             this.dateTimePickerMondayStart.Location = new System.Drawing.Point(190, 92);
             this.dateTimePickerMondayStart.Name = "dateTimePickerMondayStart";
             this.dateTimePickerMondayStart.ShowUpDown = true;
-            this.dateTimePickerMondayStart.Size = new System.Drawing.Size(90, 27);
+            this.dateTimePickerMondayStart.Size = new System.Drawing.Size(117, 31);
             this.dateTimePickerMondayStart.TabIndex = 8;
             // 
             // dateTimePickerMondayEnd
             // 
             this.dateTimePickerMondayEnd.CustomFormat = "hh:mm tt";
             this.dateTimePickerMondayEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerMondayEnd.Location = new System.Drawing.Point(313, 92);
+            this.dateTimePickerMondayEnd.Location = new System.Drawing.Point(326, 92);
             this.dateTimePickerMondayEnd.Name = "dateTimePickerMondayEnd";
             this.dateTimePickerMondayEnd.ShowUpDown = true;
-            this.dateTimePickerMondayEnd.Size = new System.Drawing.Size(88, 27);
+            this.dateTimePickerMondayEnd.Size = new System.Drawing.Size(116, 31);
             this.dateTimePickerMondayEnd.TabIndex = 9;
             // 
             // dateTimePickerTuesdayEnd
             // 
             this.dateTimePickerTuesdayEnd.CustomFormat = "hh:mm tt";
             this.dateTimePickerTuesdayEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerTuesdayEnd.Location = new System.Drawing.Point(313, 125);
+            this.dateTimePickerTuesdayEnd.Location = new System.Drawing.Point(326, 125);
             this.dateTimePickerTuesdayEnd.Name = "dateTimePickerTuesdayEnd";
             this.dateTimePickerTuesdayEnd.ShowUpDown = true;
-            this.dateTimePickerTuesdayEnd.Size = new System.Drawing.Size(88, 27);
+            this.dateTimePickerTuesdayEnd.Size = new System.Drawing.Size(116, 31);
             this.dateTimePickerTuesdayEnd.TabIndex = 13;
             // 
             // dateTimePickerTuesdayStart
@@ -168,15 +168,15 @@ namespace USBRelayScheduler
             this.dateTimePickerTuesdayStart.Location = new System.Drawing.Point(190, 125);
             this.dateTimePickerTuesdayStart.Name = "dateTimePickerTuesdayStart";
             this.dateTimePickerTuesdayStart.ShowUpDown = true;
-            this.dateTimePickerTuesdayStart.Size = new System.Drawing.Size(90, 27);
+            this.dateTimePickerTuesdayStart.Size = new System.Drawing.Size(117, 31);
             this.dateTimePickerTuesdayStart.TabIndex = 12;
             // 
             // checkBoxEnableTuesday
             // 
             this.checkBoxEnableTuesday.AutoSize = true;
-            this.checkBoxEnableTuesday.Location = new System.Drawing.Point(129, 134);
+            this.checkBoxEnableTuesday.Location = new System.Drawing.Point(133, 134);
             this.checkBoxEnableTuesday.Name = "checkBoxEnableTuesday";
-            this.checkBoxEnableTuesday.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxEnableTuesday.Size = new System.Drawing.Size(18, 17);
             this.checkBoxEnableTuesday.TabIndex = 11;
             this.checkBoxEnableTuesday.UseVisualStyleBackColor = true;
             // 
@@ -185,7 +185,7 @@ namespace USBRelayScheduler
             this.labelTuesday.AutoSize = true;
             this.labelTuesday.Location = new System.Drawing.Point(32, 131);
             this.labelTuesday.Name = "labelTuesday";
-            this.labelTuesday.Size = new System.Drawing.Size(63, 20);
+            this.labelTuesday.Size = new System.Drawing.Size(77, 25);
             this.labelTuesday.TabIndex = 10;
             this.labelTuesday.Text = "Tuesday";
             // 
@@ -193,10 +193,10 @@ namespace USBRelayScheduler
             // 
             this.dateTimePickerWednesdayEnd.CustomFormat = "hh:mm tt";
             this.dateTimePickerWednesdayEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerWednesdayEnd.Location = new System.Drawing.Point(313, 158);
+            this.dateTimePickerWednesdayEnd.Location = new System.Drawing.Point(326, 158);
             this.dateTimePickerWednesdayEnd.Name = "dateTimePickerWednesdayEnd";
             this.dateTimePickerWednesdayEnd.ShowUpDown = true;
-            this.dateTimePickerWednesdayEnd.Size = new System.Drawing.Size(88, 27);
+            this.dateTimePickerWednesdayEnd.Size = new System.Drawing.Size(116, 31);
             this.dateTimePickerWednesdayEnd.TabIndex = 17;
             // 
             // dateTimePickerWednesdayStart
@@ -206,15 +206,15 @@ namespace USBRelayScheduler
             this.dateTimePickerWednesdayStart.Location = new System.Drawing.Point(190, 158);
             this.dateTimePickerWednesdayStart.Name = "dateTimePickerWednesdayStart";
             this.dateTimePickerWednesdayStart.ShowUpDown = true;
-            this.dateTimePickerWednesdayStart.Size = new System.Drawing.Size(90, 27);
+            this.dateTimePickerWednesdayStart.Size = new System.Drawing.Size(117, 31);
             this.dateTimePickerWednesdayStart.TabIndex = 16;
             // 
             // checkBoxEnableWednesday
             // 
             this.checkBoxEnableWednesday.AutoSize = true;
-            this.checkBoxEnableWednesday.Location = new System.Drawing.Point(129, 167);
+            this.checkBoxEnableWednesday.Location = new System.Drawing.Point(133, 167);
             this.checkBoxEnableWednesday.Name = "checkBoxEnableWednesday";
-            this.checkBoxEnableWednesday.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxEnableWednesday.Size = new System.Drawing.Size(18, 17);
             this.checkBoxEnableWednesday.TabIndex = 15;
             this.checkBoxEnableWednesday.UseVisualStyleBackColor = true;
             // 
@@ -223,7 +223,7 @@ namespace USBRelayScheduler
             this.labelWednesday.AutoSize = true;
             this.labelWednesday.Location = new System.Drawing.Point(10, 164);
             this.labelWednesday.Name = "labelWednesday";
-            this.labelWednesday.Size = new System.Drawing.Size(85, 20);
+            this.labelWednesday.Size = new System.Drawing.Size(104, 25);
             this.labelWednesday.TabIndex = 14;
             this.labelWednesday.Text = "Wednesday";
             // 
@@ -231,10 +231,10 @@ namespace USBRelayScheduler
             // 
             this.dateTimePickerThursdayEnd.CustomFormat = "hh:mm tt";
             this.dateTimePickerThursdayEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerThursdayEnd.Location = new System.Drawing.Point(313, 191);
+            this.dateTimePickerThursdayEnd.Location = new System.Drawing.Point(326, 191);
             this.dateTimePickerThursdayEnd.Name = "dateTimePickerThursdayEnd";
             this.dateTimePickerThursdayEnd.ShowUpDown = true;
-            this.dateTimePickerThursdayEnd.Size = new System.Drawing.Size(88, 27);
+            this.dateTimePickerThursdayEnd.Size = new System.Drawing.Size(116, 31);
             this.dateTimePickerThursdayEnd.TabIndex = 21;
             // 
             // dateTimePickerThursdayStart
@@ -244,15 +244,15 @@ namespace USBRelayScheduler
             this.dateTimePickerThursdayStart.Location = new System.Drawing.Point(190, 191);
             this.dateTimePickerThursdayStart.Name = "dateTimePickerThursdayStart";
             this.dateTimePickerThursdayStart.ShowUpDown = true;
-            this.dateTimePickerThursdayStart.Size = new System.Drawing.Size(90, 27);
+            this.dateTimePickerThursdayStart.Size = new System.Drawing.Size(117, 31);
             this.dateTimePickerThursdayStart.TabIndex = 20;
             // 
             // checkBoxEnableThursday
             // 
             this.checkBoxEnableThursday.AutoSize = true;
-            this.checkBoxEnableThursday.Location = new System.Drawing.Point(129, 200);
+            this.checkBoxEnableThursday.Location = new System.Drawing.Point(133, 200);
             this.checkBoxEnableThursday.Name = "checkBoxEnableThursday";
-            this.checkBoxEnableThursday.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxEnableThursday.Size = new System.Drawing.Size(18, 17);
             this.checkBoxEnableThursday.TabIndex = 19;
             this.checkBoxEnableThursday.UseVisualStyleBackColor = true;
             // 
@@ -261,7 +261,7 @@ namespace USBRelayScheduler
             this.labelThursday.AutoSize = true;
             this.labelThursday.Location = new System.Drawing.Point(27, 197);
             this.labelThursday.Name = "labelThursday";
-            this.labelThursday.Size = new System.Drawing.Size(68, 20);
+            this.labelThursday.Size = new System.Drawing.Size(84, 25);
             this.labelThursday.TabIndex = 18;
             this.labelThursday.Text = "Thursday";
             // 
@@ -269,10 +269,10 @@ namespace USBRelayScheduler
             // 
             this.dateTimePickerFridayEnd.CustomFormat = "hh:mm tt";
             this.dateTimePickerFridayEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerFridayEnd.Location = new System.Drawing.Point(313, 224);
+            this.dateTimePickerFridayEnd.Location = new System.Drawing.Point(326, 224);
             this.dateTimePickerFridayEnd.Name = "dateTimePickerFridayEnd";
             this.dateTimePickerFridayEnd.ShowUpDown = true;
-            this.dateTimePickerFridayEnd.Size = new System.Drawing.Size(88, 27);
+            this.dateTimePickerFridayEnd.Size = new System.Drawing.Size(116, 31);
             this.dateTimePickerFridayEnd.TabIndex = 25;
             // 
             // dateTimePickerFridayStart
@@ -282,15 +282,15 @@ namespace USBRelayScheduler
             this.dateTimePickerFridayStart.Location = new System.Drawing.Point(190, 224);
             this.dateTimePickerFridayStart.Name = "dateTimePickerFridayStart";
             this.dateTimePickerFridayStart.ShowUpDown = true;
-            this.dateTimePickerFridayStart.Size = new System.Drawing.Size(90, 27);
+            this.dateTimePickerFridayStart.Size = new System.Drawing.Size(117, 31);
             this.dateTimePickerFridayStart.TabIndex = 24;
             // 
             // checkBoxEnableFriday
             // 
             this.checkBoxEnableFriday.AutoSize = true;
-            this.checkBoxEnableFriday.Location = new System.Drawing.Point(129, 233);
+            this.checkBoxEnableFriday.Location = new System.Drawing.Point(133, 233);
             this.checkBoxEnableFriday.Name = "checkBoxEnableFriday";
-            this.checkBoxEnableFriday.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxEnableFriday.Size = new System.Drawing.Size(18, 17);
             this.checkBoxEnableFriday.TabIndex = 23;
             this.checkBoxEnableFriday.UseVisualStyleBackColor = true;
             // 
@@ -299,7 +299,7 @@ namespace USBRelayScheduler
             this.labelFriday.AutoSize = true;
             this.labelFriday.Location = new System.Drawing.Point(46, 230);
             this.labelFriday.Name = "labelFriday";
-            this.labelFriday.Size = new System.Drawing.Size(49, 20);
+            this.labelFriday.Size = new System.Drawing.Size(60, 25);
             this.labelFriday.TabIndex = 22;
             this.labelFriday.Text = "Friday";
             // 
@@ -307,10 +307,10 @@ namespace USBRelayScheduler
             // 
             this.dateTimePickerSaturdayEnd.CustomFormat = "hh:mm tt";
             this.dateTimePickerSaturdayEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerSaturdayEnd.Location = new System.Drawing.Point(313, 257);
+            this.dateTimePickerSaturdayEnd.Location = new System.Drawing.Point(326, 257);
             this.dateTimePickerSaturdayEnd.Name = "dateTimePickerSaturdayEnd";
             this.dateTimePickerSaturdayEnd.ShowUpDown = true;
-            this.dateTimePickerSaturdayEnd.Size = new System.Drawing.Size(88, 27);
+            this.dateTimePickerSaturdayEnd.Size = new System.Drawing.Size(116, 31);
             this.dateTimePickerSaturdayEnd.TabIndex = 29;
             // 
             // dateTimePickerSaturdayStart
@@ -320,15 +320,15 @@ namespace USBRelayScheduler
             this.dateTimePickerSaturdayStart.Location = new System.Drawing.Point(190, 257);
             this.dateTimePickerSaturdayStart.Name = "dateTimePickerSaturdayStart";
             this.dateTimePickerSaturdayStart.ShowUpDown = true;
-            this.dateTimePickerSaturdayStart.Size = new System.Drawing.Size(90, 27);
+            this.dateTimePickerSaturdayStart.Size = new System.Drawing.Size(117, 31);
             this.dateTimePickerSaturdayStart.TabIndex = 28;
             // 
             // checkBoxEnableSaturday
             // 
             this.checkBoxEnableSaturday.AutoSize = true;
-            this.checkBoxEnableSaturday.Location = new System.Drawing.Point(129, 266);
+            this.checkBoxEnableSaturday.Location = new System.Drawing.Point(133, 266);
             this.checkBoxEnableSaturday.Name = "checkBoxEnableSaturday";
-            this.checkBoxEnableSaturday.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxEnableSaturday.Size = new System.Drawing.Size(18, 17);
             this.checkBoxEnableSaturday.TabIndex = 27;
             this.checkBoxEnableSaturday.UseVisualStyleBackColor = true;
             // 
@@ -337,7 +337,7 @@ namespace USBRelayScheduler
             this.labelSaturday.AutoSize = true;
             this.labelSaturday.Location = new System.Drawing.Point(28, 263);
             this.labelSaturday.Name = "labelSaturday";
-            this.labelSaturday.Size = new System.Drawing.Size(67, 20);
+            this.labelSaturday.Size = new System.Drawing.Size(82, 25);
             this.labelSaturday.TabIndex = 26;
             this.labelSaturday.Text = "Saturday";
             // 
@@ -345,10 +345,10 @@ namespace USBRelayScheduler
             // 
             this.dateTimePickerSundayEnd.CustomFormat = "hh:mm tt";
             this.dateTimePickerSundayEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerSundayEnd.Location = new System.Drawing.Point(313, 290);
+            this.dateTimePickerSundayEnd.Location = new System.Drawing.Point(326, 290);
             this.dateTimePickerSundayEnd.Name = "dateTimePickerSundayEnd";
             this.dateTimePickerSundayEnd.ShowUpDown = true;
-            this.dateTimePickerSundayEnd.Size = new System.Drawing.Size(88, 27);
+            this.dateTimePickerSundayEnd.Size = new System.Drawing.Size(116, 31);
             this.dateTimePickerSundayEnd.TabIndex = 33;
             // 
             // dateTimePickerSundayStart
@@ -358,15 +358,15 @@ namespace USBRelayScheduler
             this.dateTimePickerSundayStart.Location = new System.Drawing.Point(190, 290);
             this.dateTimePickerSundayStart.Name = "dateTimePickerSundayStart";
             this.dateTimePickerSundayStart.ShowUpDown = true;
-            this.dateTimePickerSundayStart.Size = new System.Drawing.Size(90, 27);
+            this.dateTimePickerSundayStart.Size = new System.Drawing.Size(117, 31);
             this.dateTimePickerSundayStart.TabIndex = 32;
             // 
             // checkBoxEnableSunday
             // 
             this.checkBoxEnableSunday.AutoSize = true;
-            this.checkBoxEnableSunday.Location = new System.Drawing.Point(129, 299);
+            this.checkBoxEnableSunday.Location = new System.Drawing.Point(133, 299);
             this.checkBoxEnableSunday.Name = "checkBoxEnableSunday";
-            this.checkBoxEnableSunday.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxEnableSunday.Size = new System.Drawing.Size(18, 17);
             this.checkBoxEnableSunday.TabIndex = 31;
             this.checkBoxEnableSunday.UseVisualStyleBackColor = true;
             // 
@@ -375,13 +375,14 @@ namespace USBRelayScheduler
             this.labelSunday.AutoSize = true;
             this.labelSunday.Location = new System.Drawing.Point(28, 296);
             this.labelSunday.Name = "labelSunday";
-            this.labelSunday.Size = new System.Drawing.Size(67, 20);
+            this.labelSunday.Size = new System.Drawing.Size(82, 25);
             this.labelSunday.TabIndex = 30;
             this.labelSunday.Text = "Saturday";
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(88, 352);
+            this.buttonCancel.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonCancel.Location = new System.Drawing.Point(109, 352);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 28);
             this.buttonCancel.TabIndex = 34;
@@ -391,7 +392,8 @@ namespace USBRelayScheduler
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(234, 352);
+            this.buttonSave.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.buttonSave.Location = new System.Drawing.Point(278, 352);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 28);
             this.buttonSave.TabIndex = 35;
@@ -401,9 +403,9 @@ namespace USBRelayScheduler
             // 
             // RelaySetupForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(423, 409);
+            this.ClientSize = new System.Drawing.Size(463, 400);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.dateTimePickerSundayEnd);

@@ -11,20 +11,22 @@ namespace USBRelayScheduler
     {
         private string serialNumber;
         private bool[] currentRelayStates = new bool[] {false, false, false, false };
-        private RelaySchedule[] relaySchedules;
         public Timer relayScheduleTimer;
 
         private readonly byte[] RELAYBYTES = { 0x01, 0x02, 0x04, 0x08 };
 
         public TctecUSBDevice()
         {
-            relaySchedules = new RelaySchedule[4]
+            if (Settings.Default.RelaySchedules == null)
             {
-                new RelaySchedule(),
-                new RelaySchedule(),
-                new RelaySchedule(),
-                new RelaySchedule()
-            };
+                Settings.Default.RelaySchedules = new List<RelaySchedule>();
+                for (int i = 0; i <= 3; i++)
+                {
+                    Settings.Default.RelaySchedules.Add(new RelaySchedule());
+                }
+
+                Settings.Default.Save();
+            }
 
             try
             {
@@ -36,8 +38,6 @@ namespace USBRelayScheduler
                 Console.WriteLine("Unable to locate device, ex: " + ex.Message);
                 return;
             }
-
-            LoadSchedules();
             StartScheduleTimer();
         }
 
@@ -68,26 +68,6 @@ namespace USBRelayScheduler
             currentRelayStates[relay] = false;
         }
 
-        public void LoadSchedules()
-        {
-            if (Settings.Default.Relay1Schedule != null)
-            {
-                relaySchedules[0] = Settings.Default.Relay1Schedule;
-            }
-            if (Settings.Default.Relay2Schedule != null)
-            {
-                relaySchedules[1] = Settings.Default.Relay2Schedule;
-            }
-            if (Settings.Default.Relay3Schedule != null)
-            {
-                relaySchedules[2] = Settings.Default.Relay3Schedule;
-            }
-            if (Settings.Default.Relay4Schedule != null)
-            {
-                relaySchedules[3] = Settings.Default.Relay4Schedule;
-            }
-        }
-
         private void StartScheduleTimer()
         {
             relayScheduleTimer = new Timer();
@@ -103,13 +83,10 @@ namespace USBRelayScheduler
             int currentDay = (int)DateTime.Now.DayOfWeek - 1;
             if (currentDay == -1) { currentDay = 6; } // Account for index mismatch if Sunday
 
-            List<RelaySchedule> relaySchedules = new List<RelaySchedule>();
-            relaySchedules.Add(Settings.Default.Relay1Schedule);
-            relaySchedules.Add(Settings.Default.Relay2Schedule);
-            relaySchedules.Add(Settings.Default.Relay3Schedule);
-            relaySchedules.Add(Settings.Default.Relay4Schedule);
+            if (Settings.Default.RelaySchedules == null) return;
+            List<RelaySchedule> relaySchedules = Settings.Default.RelaySchedules;
 
-            for (int i = 0; i <= 3; i++)
+            for (int i = 0; i <= relaySchedules.Count - 1; i++)
             {
                 if (relaySchedules[i] == null || relaySchedules[i].schedules[currentDay] == null) { continue; }
 

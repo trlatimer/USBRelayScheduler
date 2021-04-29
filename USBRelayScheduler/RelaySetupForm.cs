@@ -27,28 +27,13 @@ namespace USBRelayScheduler
 
         private void PopulateFields(int relay)
         {
-            RelaySchedule selectedSchedule = null;
+            if (Settings.Default.RelaySchedules == null) return;
+            if (Settings.Default.RelaySchedules != null && relay >= Settings.Default.RelaySchedules.Count - 1) return;
+            if (Settings.Default.RelaySchedules[relay] == null) { Settings.Default.RelaySchedules[relay] = new RelaySchedule(); }
 
-            switch (relay)
-            {
-                case 0:
-                    selectedSchedule = Settings.Default.Relay1Schedule;
-                    break;
-                case 1:
-                    selectedSchedule = Settings.Default.Relay2Schedule;
-                    break;
-                case 2:
-                    selectedSchedule = Settings.Default.Relay3Schedule;
-                    break;
-                case 4:
-                    selectedSchedule = Settings.Default.Relay4Schedule;
-                    break;
-            }
+            RelaySchedule selectedSchedule = Settings.Default.RelaySchedules[relay];
 
-            if (selectedSchedule == null)
-            {
-                selectedSchedule = new RelaySchedule();
-            }
+            if (selectedSchedule == null) { selectedSchedule = new RelaySchedule(); }
 
             checkBoxEnableMonday.Checked = selectedSchedule.schedules[0].Enabled;
             checkBoxEnableTuesday.Checked = selectedSchedule.schedules[1].Enabled;
@@ -76,37 +61,37 @@ namespace USBRelayScheduler
 
         private bool ValidateForm()
         {
-            if (dateTimePickerMondayStart.Value.TimeOfDay >= dateTimePickerMondayEnd.Value.TimeOfDay)
+            if (checkBoxEnableMonday.Checked && dateTimePickerMondayStart.Value.TimeOfDay >= dateTimePickerMondayEnd.Value.TimeOfDay)
             {
                 MessageBox.Show("Monday end time must be after start time");
                 return false;
             }
-            if (dateTimePickerTuesdayStart.Value.TimeOfDay >= dateTimePickerTuesdayEnd.Value.TimeOfDay)
+            if (checkBoxEnableTuesday.Checked && dateTimePickerTuesdayStart.Value.TimeOfDay >= dateTimePickerTuesdayEnd.Value.TimeOfDay)
             {
                 MessageBox.Show("Tuesday end time must be after start time");
                 return false;
             }
-            if (dateTimePickerWednesdayStart.Value.TimeOfDay >= dateTimePickerWednesdayEnd.Value.TimeOfDay)
+            if (checkBoxEnableWednesday.Checked && dateTimePickerWednesdayStart.Value.TimeOfDay >= dateTimePickerWednesdayEnd.Value.TimeOfDay)
             {
                 MessageBox.Show("Wednesday end time must be after start time");
                 return false;
             }
-            if (dateTimePickerThursdayStart.Value.TimeOfDay >= dateTimePickerThursdayEnd.Value.TimeOfDay)
+            if (checkBoxEnableThursday.Checked && dateTimePickerThursdayStart.Value.TimeOfDay >= dateTimePickerThursdayEnd.Value.TimeOfDay)
             {
                 MessageBox.Show("Thursday end time must be after start time");
                 return false;
             }
-            if (dateTimePickerFridayStart.Value.TimeOfDay >= dateTimePickerFridayEnd.Value.TimeOfDay)
+            if (checkBoxEnableFriday.Checked && dateTimePickerFridayStart.Value.TimeOfDay >= dateTimePickerFridayEnd.Value.TimeOfDay)
             {
                 MessageBox.Show("Friday end time must be after start time");
                 return false;
             }
-            if (dateTimePickerSaturdayStart.Value.TimeOfDay >= dateTimePickerSaturdayEnd.Value.TimeOfDay)
+            if (checkBoxEnableSaturday.Checked && dateTimePickerSaturdayStart.Value.TimeOfDay >= dateTimePickerSaturdayEnd.Value.TimeOfDay)
             {
                 MessageBox.Show("Saturday end time must be after start time");
                 return false;
             }
-            if (dateTimePickerSundayStart.Value.TimeOfDay >= dateTimePickerSundayEnd.Value.TimeOfDay)
+            if (checkBoxEnableSunday.Checked && dateTimePickerSundayStart.Value.TimeOfDay >= dateTimePickerSundayEnd.Value.TimeOfDay)
             {
                 MessageBox.Show("Sunday end time must be after start time");
                 return false;
@@ -126,22 +111,7 @@ namespace USBRelayScheduler
             tempSchedule.SetSchedule(5, checkBoxEnableSaturday.Checked, dateTimePickerSaturdayStart.Value, dateTimePickerSaturdayEnd.Value);
             tempSchedule.SetSchedule(6, checkBoxEnableSunday.Checked, dateTimePickerSundayStart.Value, dateTimePickerSundayEnd.Value);
 
-            switch (currentRelay)
-            {
-                case 0:
-                    Settings.Default.Relay1Schedule = tempSchedule;
-                    break;
-                case 1:
-                    Settings.Default.Relay2Schedule = tempSchedule;
-                    break;
-                case 2:
-                    Settings.Default.Relay3Schedule = tempSchedule;
-                    break;
-                case 4:
-                    Settings.Default.Relay4Schedule = tempSchedule;
-                    break;
-            }
-
+            Settings.Default.RelaySchedules[currentRelay] = tempSchedule;
             Settings.Default.Save();
         }
 
@@ -150,14 +120,12 @@ namespace USBRelayScheduler
             if (ValidateForm())
             {
                 SaveSchedule();
-                DialogResult = DialogResult.OK;
                 this.Close();
             }
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.Cancel;
             this.Close();
         }
     }
