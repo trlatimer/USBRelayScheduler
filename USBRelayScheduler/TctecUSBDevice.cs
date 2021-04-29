@@ -27,7 +27,6 @@ namespace USBRelayScheduler
             catch (ArgumentOutOfRangeException ex)
             {
                 MessageBox.Show("Unable to find a Tctec USB Relay device, please reconnect and try again.", "No Devices", MessageBoxButtons.OK);
-                Console.WriteLine("Unable to locate device, ex: " + ex.Message);
             }     
         }
 
@@ -46,7 +45,7 @@ namespace USBRelayScheduler
             return serialNumber;
         }
 
-        public void SetRelay(int relay, bool on)
+        public bool SetRelay(int relay, bool on)
         {
             int success = 0;
             if (on)
@@ -55,7 +54,7 @@ namespace USBRelayScheduler
                 if (success == 1)
                 {
                     MessageBox.Show("Unable to set relay, please check connection.", "Unable to connect", MessageBoxButtons.OK);
-                    return;
+                    return false;
                 }
                 currentRelayStates[relay] = true;
             }
@@ -65,10 +64,11 @@ namespace USBRelayScheduler
                 if (success == 1)
                 {
                     MessageBox.Show("Unable to set relay, please check connection.", "Unable to connect", MessageBoxButtons.OK);
-                    return;
+                    return false;
                 }
                 currentRelayStates[relay] = false;
             }
+            return true;
         }
 
         public void CheckRelaySchedules()

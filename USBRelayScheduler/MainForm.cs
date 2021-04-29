@@ -33,6 +33,7 @@ namespace USBRelayScheduler
 
         private void ResetRelays()
         {
+            if (relayDevice.GetSerialNumber() == null) return;
             for (int i = 0; i <= 3; i++)
             {
                 relayDevice.SetRelay(i, false);
@@ -45,7 +46,10 @@ namespace USBRelayScheduler
             {
                 Settings.Default.RelaySchedules[relay].enabled = false;
                 Settings.Default.Save();
-                relayDevice.SetRelay(relay, true);
+                if (!relayDevice.SetRelay(relay, true))
+                {
+                    ResetForceOn(relay);
+                }
             }
             else
             {
@@ -53,6 +57,16 @@ namespace USBRelayScheduler
                 Settings.Default.Save();
                 relayDevice.CheckRelaySchedules();
             }
+        }
+
+        private void ResetForceOn(int relay)
+        {
+            Settings.Default.RelaySchedules[relay].enabled = true;
+            Settings.Default.Save();
+            if (relay == 0) { checkBoxRelay1ForceOn.Checked = false; }
+            else if (relay == 1) { checkBoxRelay2ForceOn.Checked = false; }
+            else if (relay == 2) { checkBoxRelay3ForceOn.Checked = false; }
+            else if (relay == 3) { checkBoxRelay4ForceOn.Checked = false; }
         }
 
         private void HandleRelayNamechange(int relayIndex)
@@ -130,7 +144,6 @@ namespace USBRelayScheduler
             catch (ObjectDisposedException ex)
             {
                 relayStatusTimer.Stop();
-                Console.WriteLine("Tried to access disposed MainForm, ex: " + ex.Message); // TODO Find a better way to handle this than a Try/Catch
             }
 
             relayStatusTimer.Elapsed += CheckDeviceStatus;
