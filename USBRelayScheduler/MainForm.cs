@@ -39,22 +39,42 @@ namespace USBRelayScheduler
             }
         }
 
-        private void ToggleRelay(int relay)
+        private void ToggleRelayForce(int relay, bool forceOn)
         {
-            if (relayDevice.GetRelayState(relay))
+            if (forceOn)
             {
-                relayDevice.SetRelay(relay, false);
+                Settings.Default.RelaySchedules[relay].enabled = false;
+                Settings.Default.Save();
+                relayDevice.SetRelay(relay, true);
             }
             else
             {
-                relayDevice.SetRelay(relay, true);
+                Settings.Default.RelaySchedules[relay].enabled = true;
+                Settings.Default.Save();
+                relayDevice.CheckRelaySchedules();
             }
         }
 
-        private void CheckRelayStatus(Object source, System.Timers.ElapsedEventArgs e)
+        private void HandleRelayNamechange(int relayIndex)
         {
-            relayStatusTimer.Elapsed -= CheckRelayStatus;
+            if (relayIndex == 0) { Settings.Default.Relay1Name = menuTextBoxRelay1Name.Text; }
+            else if (relayIndex == 1) { Settings.Default.Relay2Name = menuTextBoxRelay2Name.Text; }
+            else if (relayIndex == 2) { Settings.Default.Relay3Name = menuTextBoxRelay3Name.Text; }
+            else if (relayIndex == 3) { Settings.Default.Relay4Name = menuTextBoxRelay4Name.Text; }
 
+            Settings.Default.Save();
+
+            labelRelay1Name.Text = Settings.Default.Relay1Name;
+            labelRelay2Name.Text = Settings.Default.Relay2Name;
+            labelRelay3Name.Text = Settings.Default.Relay3Name;
+            labelRelay4Name.Text = Settings.Default.Relay4Name;
+        }
+
+        private void CheckDeviceStatus(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            if (relayDevice == null) { return; }
+            relayStatusTimer.Elapsed -= CheckDeviceStatus;
+            
             try
             {
                 if (InvokeRequired && !this.IsDisposed && !this.Disposing)
@@ -113,39 +133,41 @@ namespace USBRelayScheduler
                 Console.WriteLine("Tried to access disposed MainForm, ex: " + ex.Message); // TODO Find a better way to handle this than a Try/Catch
             }
 
-            relayStatusTimer.Elapsed += CheckRelayStatus;
+            relayStatusTimer.Elapsed += CheckDeviceStatus;
         }
 
-        private void HandleRelayNamechange(int relayIndex)
+        private void RefreshDevice()
         {
-            if (relayIndex == 0) { Settings.Default.Relay1Name = menuTextBoxRelay1Name.Text; }
-            else if (relayIndex == 1) { Settings.Default.Relay2Name = menuTextBoxRelay2Name.Text; }
-            else if (relayIndex == 2) { Settings.Default.Relay3Name = menuTextBoxRelay3Name.Text; }
-            else if (relayIndex == 3) { Settings.Default.Relay4Name = menuTextBoxRelay4Name.Text; }
-
-            Settings.Default.Save();
-
-            labelRelay1Name.Text = Settings.Default.Relay1Name;
-            labelRelay2Name.Text = Settings.Default.Relay2Name;
-            labelRelay3Name.Text = Settings.Default.Relay3Name;
-            labelRelay4Name.Text = Settings.Default.Relay4Name;
+            relayStatusTimer.Elapsed -= CheckDeviceStatus;
+            relayDevice = null;
+            relayDevice = new TctecUSBDevice();
+            textBoxDeviceAddress.Text = relayDevice.GetSerialNumber();
+            relayStatusTimer.Elapsed += CheckDeviceStatus;
         }
 
         private void buttonRefreshDeviceAddress_Click(object sender, EventArgs e)
         {
-            relayDevice = null;
-            relayDevice = new TctecUSBDevice();
-            textBoxDeviceAddress.Text = relayDevice.GetSerialNumber();
+            RefreshDevice();
         }
 
         private void checkBoxRelay1ForceOn_CheckedChanged(object sender, EventArgs e)
         {
-            ToggleRelay(0);
+            ToggleRelayForce(0, checkBoxRelay1ForceOn.Checked);
         }
 
         private void checkBoxRelay2ForceOn_CheckedChanged(object sender, EventArgs e)
         {
-            ToggleRelay(1);
+            ToggleRelayForce(1, checkBoxRelay2ForceOn.Checked);
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            ToggleRelayForce(2, checkBoxRelay3ForceOn.Checked);
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            ToggleRelayForce(3, checkBoxRelay4ForceOn.Checked);
         }
 
         private void MainForm_FormClosing(object sender, EventArgs e)
@@ -153,20 +175,10 @@ namespace USBRelayScheduler
             relayStatusTimer.Stop();
         }
 
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-            ToggleRelay(2);
-        }
-
-        private void checkBox4_CheckedChanged(object sender, EventArgs e)
-        {
-            ToggleRelay(3);
-        }
-
         private void MainForm_Load(object sender, EventArgs e)
         {
             relayStatusTimer = new System.Timers.Timer(10);
-            relayStatusTimer.Elapsed += CheckRelayStatus;
+            relayStatusTimer.Elapsed += CheckDeviceStatus;
             relayStatusTimer.Start();
 
             labelRelay1Name.Text = Settings.Default.Relay1Name + ":";

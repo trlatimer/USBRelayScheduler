@@ -45,9 +45,9 @@ namespace USBRelayScheduler
             this.buttonRelay2Schedule = new System.Windows.Forms.Button();
             this.checkBoxRelay2ForceOn = new System.Windows.Forms.CheckBox();
             this.buttonRelay3Schedule = new System.Windows.Forms.Button();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxRelay3ForceOn = new System.Windows.Forms.CheckBox();
             this.buttonRelay4Schedule = new System.Windows.Forms.Button();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBoxRelay4ForceOn = new System.Windows.Forms.CheckBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuItemFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemClose = new System.Windows.Forms.ToolStripMenuItem();
@@ -232,16 +232,16 @@ namespace USBRelayScheduler
             this.buttonRelay3Schedule.UseVisualStyleBackColor = true;
             this.buttonRelay3Schedule.Click += new System.EventHandler(this.buttonRelay3Schedule_Click);
             // 
-            // checkBox2
+            // checkBoxRelay3ForceOn
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBox2.Location = new System.Drawing.Point(213, 268);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(18, 17);
-            this.checkBox2.TabIndex = 17;
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            this.checkBoxRelay3ForceOn.AutoSize = true;
+            this.checkBoxRelay3ForceOn.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.checkBoxRelay3ForceOn.Location = new System.Drawing.Point(213, 268);
+            this.checkBoxRelay3ForceOn.Name = "checkBoxRelay3ForceOn";
+            this.checkBoxRelay3ForceOn.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxRelay3ForceOn.TabIndex = 17;
+            this.checkBoxRelay3ForceOn.UseVisualStyleBackColor = true;
+            this.checkBoxRelay3ForceOn.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // buttonRelay4Schedule
             // 
@@ -254,16 +254,16 @@ namespace USBRelayScheduler
             this.buttonRelay4Schedule.UseVisualStyleBackColor = true;
             this.buttonRelay4Schedule.Click += new System.EventHandler(this.buttonRelay4Schedule_Click);
             // 
-            // checkBox4
+            // checkBoxRelay4ForceOn
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBox4.Location = new System.Drawing.Point(213, 308);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(18, 17);
-            this.checkBox4.TabIndex = 20;
-            this.checkBox4.UseVisualStyleBackColor = true;
-            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            this.checkBoxRelay4ForceOn.AutoSize = true;
+            this.checkBoxRelay4ForceOn.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.checkBoxRelay4ForceOn.Location = new System.Drawing.Point(213, 308);
+            this.checkBoxRelay4ForceOn.Name = "checkBoxRelay4ForceOn";
+            this.checkBoxRelay4ForceOn.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxRelay4ForceOn.TabIndex = 20;
+            this.checkBoxRelay4ForceOn.UseVisualStyleBackColor = true;
+            this.checkBoxRelay4ForceOn.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
             // 
             // menuStrip1
             // 
@@ -377,9 +377,9 @@ namespace USBRelayScheduler
             this.Controls.Add(this.buttonRelay2Status);
             this.Controls.Add(this.buttonRelay1Status);
             this.Controls.Add(this.buttonRelay4Schedule);
-            this.Controls.Add(this.checkBox4);
+            this.Controls.Add(this.checkBoxRelay4ForceOn);
             this.Controls.Add(this.buttonRelay3Schedule);
-            this.Controls.Add(this.checkBox2);
+            this.Controls.Add(this.checkBoxRelay3ForceOn);
             this.Controls.Add(this.buttonRelay2Schedule);
             this.Controls.Add(this.checkBoxRelay2ForceOn);
             this.Controls.Add(this.buttonRelay1Schedule);
@@ -427,9 +427,9 @@ namespace USBRelayScheduler
         private System.Windows.Forms.Button buttonRelay2Schedule;
         private System.Windows.Forms.CheckBox checkBoxRelay2ForceOn;
         private System.Windows.Forms.Button buttonRelay3Schedule;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBoxRelay3ForceOn;
         private System.Windows.Forms.Button buttonRelay4Schedule;
-        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkBoxRelay4ForceOn;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem menuItemFile;
         private System.Windows.Forms.ToolStripMenuItem menuItemClose;

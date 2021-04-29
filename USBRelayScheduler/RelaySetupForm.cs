@@ -115,11 +115,14 @@ namespace USBRelayScheduler
             {
                 for (int i = 0; i < Settings.Default.RelaySchedules.Count; i++)
                 {
+                    bool tempEnabled = Settings.Default.RelaySchedules[i].enabled;
                     Settings.Default.RelaySchedules[i] = tempSchedule;
+                    Settings.Default.RelaySchedules[i].enabled = tempEnabled;
                 }
             }
             else
             {
+                tempSchedule.enabled = Settings.Default.RelaySchedules[currentRelay].enabled;
                 Settings.Default.RelaySchedules[currentRelay] = tempSchedule;
             }
             Settings.Default.Save();

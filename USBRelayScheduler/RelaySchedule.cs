@@ -13,6 +13,8 @@ namespace USBRelayScheduler
         private static DateTime MinDateValue = DateTime.Parse("01/01/1973 12:00:00 AM");
         private static DateTime MaxDateValue = DateTime.Parse("12/31/9997 11:59:00 PM");
 
+        public bool enabled = true;
+
         // Indices map to days - Monday = 0, Sunday = 6;
         public Schedule[] schedules;
 
