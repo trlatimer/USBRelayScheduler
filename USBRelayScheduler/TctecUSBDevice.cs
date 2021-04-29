@@ -73,7 +73,7 @@ namespace USBRelayScheduler
         private void StartScheduleTimer()
         {
             relayScheduleTimer = new Timer();
-            relayScheduleTimer.Interval = 10000; // Every 10 seconds
+            relayScheduleTimer.Interval = 5000; // Every 5 seconds
             relayScheduleTimer.Enabled = true;
             relayScheduleTimer.Tick += RelayScheduleTimer_Tick;
             relayScheduleTimer.Start();
@@ -94,7 +94,7 @@ namespace USBRelayScheduler
                 if (relaySchedules[i].schedules[currentDay].Enabled)
                 {
                     TimeSpan startTime = relaySchedules[i].schedules[currentDay].StartTime.TimeOfDay;
-                    TimeSpan endTime = relaySchedules[i].schedules[currentDay].EndTime.TimeOfDay + new TimeSpan(0, 0, -59);
+                    TimeSpan endTime = relaySchedules[i].schedules[currentDay].EndTime.TimeOfDay;
                     if (currentTime >= startTime && currentTime < endTime && !GetRelayState(i))
                     {
                         SetRelay(i, true);

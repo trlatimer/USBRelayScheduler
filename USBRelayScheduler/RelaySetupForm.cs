@@ -111,7 +111,17 @@ namespace USBRelayScheduler
             tempSchedule.SetSchedule(DayOfWeek.Saturday, checkBoxEnableSaturday.Checked, dateTimePickerSaturdayStart.Value, dateTimePickerSaturdayEnd.Value);
             tempSchedule.SetSchedule(DayOfWeek.Sunday, checkBoxEnableSunday.Checked, dateTimePickerSundayStart.Value, dateTimePickerSundayEnd.Value);
 
-            Settings.Default.RelaySchedules[currentRelay] = tempSchedule;
+            if (checkBoxApplySchedule.Checked)
+            {
+                for (int i = 0; i < Settings.Default.RelaySchedules.Count; i++)
+                {
+                    Settings.Default.RelaySchedules[i] = tempSchedule;
+                }
+            }
+            else
+            {
+                Settings.Default.RelaySchedules[currentRelay] = tempSchedule;
+            }
             Settings.Default.Save();
         }
 
