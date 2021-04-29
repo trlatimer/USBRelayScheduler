@@ -115,11 +115,13 @@ namespace USBRelayScheduler
 
                 if (relaySchedules[i].schedules[currentDay].Enabled)
                 {
-                    if (currentTime == relaySchedules[i].schedules[currentDay].StartTime.TimeOfDay && !GetRelayState(i))
+                    TimeSpan startTime = relaySchedules[i].schedules[currentDay].StartTime.TimeOfDay;
+                    TimeSpan endTime = relaySchedules[i].schedules[currentDay].EndTime.TimeOfDay + new TimeSpan(0, 0, -59);
+                    if (currentTime >= startTime && currentTime < endTime && !GetRelayState(i))
                     {
                         SetRelayOn(i);
                     }
-                    else if (currentTime == relaySchedules[i].schedules[currentDay].EndTime.TimeOfDay && GetRelayState(i))
+                    else if (currentTime >= relaySchedules[i].schedules[currentDay].EndTime.TimeOfDay && GetRelayState(i))
                     {
                         SetRelayOff(i);
                     }
