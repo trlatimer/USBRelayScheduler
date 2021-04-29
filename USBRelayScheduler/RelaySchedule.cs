@@ -49,11 +49,11 @@ namespace USBRelayScheduler
 
         public int Count => schedules.Length;
 
-        public void SetSchedule(int day, bool enabled, DateTime start, DateTime end)
+        public void SetSchedule(DayOfWeek day, bool enabled, DateTime start, DateTime end)
         {
-            schedules[day].Enabled = enabled;
-            schedules[day].StartTime = start;
-            schedules[day].EndTime = end;
+            schedules[(int)day].Enabled = enabled;
+            schedules[(int)day].StartTime = start;
+            schedules[(int)day].EndTime = end;
         }
     }
 }

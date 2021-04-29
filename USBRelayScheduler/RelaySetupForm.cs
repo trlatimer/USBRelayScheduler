@@ -35,28 +35,28 @@ namespace USBRelayScheduler
 
             if (selectedSchedule == null) { selectedSchedule = new RelaySchedule(); }
 
-            checkBoxEnableMonday.Checked = selectedSchedule.schedules[0].Enabled;
-            checkBoxEnableTuesday.Checked = selectedSchedule.schedules[1].Enabled;
-            checkBoxEnableWednesday.Checked = selectedSchedule.schedules[2].Enabled;
-            checkBoxEnableThursday.Checked = selectedSchedule.schedules[3].Enabled;
-            checkBoxEnableFriday.Checked = selectedSchedule.schedules[4].Enabled;
-            checkBoxEnableSaturday.Checked = selectedSchedule.schedules[5].Enabled;
-            checkBoxEnableSunday.Checked = selectedSchedule.schedules[6].Enabled;
+            checkBoxEnableMonday.Checked = selectedSchedule.schedules[(int)DayOfWeek.Monday].Enabled;
+            checkBoxEnableTuesday.Checked = selectedSchedule.schedules[(int)DayOfWeek.Tuesday].Enabled;
+            checkBoxEnableWednesday.Checked = selectedSchedule.schedules[(int)DayOfWeek.Wednesday].Enabled;
+            checkBoxEnableThursday.Checked = selectedSchedule.schedules[(int)DayOfWeek.Thursday].Enabled;
+            checkBoxEnableFriday.Checked = selectedSchedule.schedules[(int)DayOfWeek.Friday].Enabled;
+            checkBoxEnableSaturday.Checked = selectedSchedule.schedules[(int)DayOfWeek.Saturday].Enabled;
+            checkBoxEnableSunday.Checked = selectedSchedule.schedules[(int)DayOfWeek.Sunday].Enabled;
 
-            dateTimePickerMondayStart.Value = selectedSchedule.schedules[0].StartTime;
-            dateTimePickerMondayEnd.Value = selectedSchedule.schedules[0].EndTime;
-            dateTimePickerTuesdayStart.Value = selectedSchedule.schedules[1].StartTime;
-            dateTimePickerTuesdayEnd.Value = selectedSchedule.schedules[1].EndTime;
-            dateTimePickerWednesdayStart.Value = selectedSchedule.schedules[2].StartTime;
-            dateTimePickerWednesdayEnd.Value = selectedSchedule.schedules[2].EndTime;
-            dateTimePickerThursdayStart.Value = selectedSchedule.schedules[3].StartTime;
-            dateTimePickerThursdayEnd.Value = selectedSchedule.schedules[3].EndTime;
-            dateTimePickerFridayStart.Value = selectedSchedule.schedules[4].StartTime;
-            dateTimePickerFridayEnd.Value = selectedSchedule.schedules[4].EndTime;
-            dateTimePickerSaturdayStart.Value = selectedSchedule.schedules[5].StartTime;
-            dateTimePickerSaturdayEnd.Value = selectedSchedule.schedules[5].EndTime;
-            dateTimePickerSundayStart.Value = selectedSchedule.schedules[6].StartTime;
-            dateTimePickerSundayEnd.Value = selectedSchedule.schedules[6].EndTime;
+            dateTimePickerMondayStart.Value = selectedSchedule.schedules[(int)DayOfWeek.Monday].StartTime;
+            dateTimePickerMondayEnd.Value = selectedSchedule.schedules[(int)DayOfWeek.Monday].EndTime;
+            dateTimePickerTuesdayStart.Value = selectedSchedule.schedules[(int)DayOfWeek.Tuesday].StartTime;
+            dateTimePickerTuesdayEnd.Value = selectedSchedule.schedules[(int)DayOfWeek.Tuesday].EndTime;
+            dateTimePickerWednesdayStart.Value = selectedSchedule.schedules[(int)DayOfWeek.Wednesday].StartTime;
+            dateTimePickerWednesdayEnd.Value = selectedSchedule.schedules[(int)DayOfWeek.Wednesday].EndTime;
+            dateTimePickerThursdayStart.Value = selectedSchedule.schedules[(int)DayOfWeek.Thursday].StartTime;
+            dateTimePickerThursdayEnd.Value = selectedSchedule.schedules[(int)DayOfWeek.Thursday].EndTime;
+            dateTimePickerFridayStart.Value = selectedSchedule.schedules[(int)DayOfWeek.Friday].StartTime;
+            dateTimePickerFridayEnd.Value = selectedSchedule.schedules[(int)DayOfWeek.Friday].EndTime;
+            dateTimePickerSaturdayStart.Value = selectedSchedule.schedules[(int)DayOfWeek.Saturday].StartTime;
+            dateTimePickerSaturdayEnd.Value = selectedSchedule.schedules[(int)DayOfWeek.Saturday].EndTime;
+            dateTimePickerSundayStart.Value = selectedSchedule.schedules[(int)DayOfWeek.Sunday].StartTime;
+            dateTimePickerSundayEnd.Value = selectedSchedule.schedules[(int)DayOfWeek.Sunday].EndTime;
         }
 
         private bool ValidateForm()
@@ -103,13 +103,13 @@ namespace USBRelayScheduler
         private void SaveSchedule()
         {
             RelaySchedule tempSchedule = new RelaySchedule();
-            tempSchedule.SetSchedule(0, checkBoxEnableMonday.Checked, dateTimePickerMondayStart.Value, dateTimePickerMondayEnd.Value);
-            tempSchedule.SetSchedule(1, checkBoxEnableTuesday.Checked, dateTimePickerTuesdayStart.Value, dateTimePickerTuesdayEnd.Value);
-            tempSchedule.SetSchedule(2, checkBoxEnableWednesday.Checked, dateTimePickerWednesdayStart.Value, dateTimePickerWednesdayEnd.Value);
-            tempSchedule.SetSchedule(3, checkBoxEnableThursday.Checked, dateTimePickerThursdayStart.Value, dateTimePickerThursdayEnd.Value);
-            tempSchedule.SetSchedule(4, checkBoxEnableFriday.Checked, dateTimePickerFridayStart.Value, dateTimePickerFridayEnd.Value);
-            tempSchedule.SetSchedule(5, checkBoxEnableSaturday.Checked, dateTimePickerSaturdayStart.Value, dateTimePickerSaturdayEnd.Value);
-            tempSchedule.SetSchedule(6, checkBoxEnableSunday.Checked, dateTimePickerSundayStart.Value, dateTimePickerSundayEnd.Value);
+            tempSchedule.SetSchedule(DayOfWeek.Monday, checkBoxEnableMonday.Checked, dateTimePickerMondayStart.Value, dateTimePickerMondayEnd.Value);
+            tempSchedule.SetSchedule(DayOfWeek.Tuesday, checkBoxEnableTuesday.Checked, dateTimePickerTuesdayStart.Value, dateTimePickerTuesdayEnd.Value);
+            tempSchedule.SetSchedule(DayOfWeek.Wednesday, checkBoxEnableWednesday.Checked, dateTimePickerWednesdayStart.Value, dateTimePickerWednesdayEnd.Value);
+            tempSchedule.SetSchedule(DayOfWeek.Thursday, checkBoxEnableThursday.Checked, dateTimePickerThursdayStart.Value, dateTimePickerThursdayEnd.Value);
+            tempSchedule.SetSchedule(DayOfWeek.Friday, checkBoxEnableFriday.Checked, dateTimePickerFridayStart.Value, dateTimePickerFridayEnd.Value);
+            tempSchedule.SetSchedule(DayOfWeek.Saturday, checkBoxEnableSaturday.Checked, dateTimePickerSaturdayStart.Value, dateTimePickerSaturdayEnd.Value);
+            tempSchedule.SetSchedule(DayOfWeek.Sunday, checkBoxEnableSunday.Checked, dateTimePickerSundayStart.Value, dateTimePickerSundayEnd.Value);
 
             Settings.Default.RelaySchedules[currentRelay] = tempSchedule;
             Settings.Default.Save();

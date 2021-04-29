@@ -56,16 +56,18 @@ namespace USBRelayScheduler
             return serialNumber;
         }
 
-        public void SetRelayOn(int relay)
+        public void SetRelay(int relay, bool on)
         {
-            TctecUSB4.TctecUSB4.setBits(serialNumber, RELAYBYTES[relay], true);
-            currentRelayStates[relay] = true;
-        }
-
-        public void SetRelayOff(int relay)
-        {
-            TctecUSB4.TctecUSB4.setBits(serialNumber, RELAYBYTES[relay], false);
-            currentRelayStates[relay] = false;
+            if (on)
+            {
+                TctecUSB4.TctecUSB4.setBits(serialNumber, RELAYBYTES[relay], true);
+                currentRelayStates[relay] = true;
+            }
+            else
+            {
+                TctecUSB4.TctecUSB4.setBits(serialNumber, RELAYBYTES[relay], false);
+                currentRelayStates[relay] = false;
+            }
         }
 
         private void StartScheduleTimer()
@@ -80,8 +82,7 @@ namespace USBRelayScheduler
         private void CheckRelaySchedules()
         {
             TimeSpan currentTime = DateTime.Now.TimeOfDay;
-            int currentDay = (int)DateTime.Now.DayOfWeek - 1;
-            if (currentDay == -1) { currentDay = 6; } // Account for index mismatch if Sunday
+            int currentDay = (int)DateTime.Now.DayOfWeek;
 
             if (Settings.Default.RelaySchedules == null) return;
             List<RelaySchedule> relaySchedules = Settings.Default.RelaySchedules;
@@ -96,11 +97,11 @@ namespace USBRelayScheduler
                     TimeSpan endTime = relaySchedules[i].schedules[currentDay].EndTime.TimeOfDay + new TimeSpan(0, 0, -59);
                     if (currentTime >= startTime && currentTime < endTime && !GetRelayState(i))
                     {
-                        SetRelayOn(i);
+                        SetRelay(i, true);
                     }
                     else if (currentTime >= relaySchedules[i].schedules[currentDay].EndTime.TimeOfDay && GetRelayState(i))
                     {
-                        SetRelayOff(i);
+                        SetRelay(i, false);
                     }
                 }
             }

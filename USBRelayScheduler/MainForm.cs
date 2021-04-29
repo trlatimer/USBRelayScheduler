@@ -22,6 +22,7 @@ namespace USBRelayScheduler
         {
             InitializeComponent();
             relayDevice = new TctecUSBDevice();
+            ResetRelays();
             PopulateForm();
         }
 
@@ -30,15 +31,23 @@ namespace USBRelayScheduler
             textBoxDeviceAddress.Text = relayDevice.GetSerialNumber();
         }
 
+        private void ResetRelays()
+        {
+            for (int i = 0; i <= 3; i++)
+            {
+                relayDevice.SetRelay(i, false);
+            }
+        }
+
         private void ToggleRelay(int relay)
         {
             if (relayDevice.GetRelayState(relay))
             {
-                relayDevice.SetRelayOff(relay);
+                relayDevice.SetRelay(relay, false);
             }
             else
             {
-                relayDevice.SetRelayOn(relay);
+                relayDevice.SetRelay(relay, true);
             }
         }
 
@@ -105,6 +114,21 @@ namespace USBRelayScheduler
             }
 
             relayStatusTimer.Elapsed += CheckRelayStatus;
+        }
+
+        private void HandleRelayNamechange(int relayIndex)
+        {
+            if (relayIndex == 0) { Settings.Default.Relay1Name = menuTextBoxRelay1Name.Text; }
+            else if (relayIndex == 1) { Settings.Default.Relay2Name = menuTextBoxRelay2Name.Text; }
+            else if (relayIndex == 2) { Settings.Default.Relay3Name = menuTextBoxRelay3Name.Text; }
+            else if (relayIndex == 3) { Settings.Default.Relay4Name = menuTextBoxRelay4Name.Text; }
+
+            Settings.Default.Save();
+
+            labelRelay1Name.Text = Settings.Default.Relay1Name;
+            labelRelay2Name.Text = Settings.Default.Relay2Name;
+            labelRelay3Name.Text = Settings.Default.Relay3Name;
+            labelRelay4Name.Text = Settings.Default.Relay4Name;
         }
 
         private void buttonRefreshDeviceAddress_Click(object sender, EventArgs e)
@@ -180,21 +204,6 @@ namespace USBRelayScheduler
         private void MenuTextBoxRelay4Name_LostFocus(object sender, EventArgs e)
         {
             HandleRelayNamechange(3);
-        }
-
-        private void HandleRelayNamechange(int relayIndex)
-        {
-            if (relayIndex == 0) { Settings.Default.Relay1Name = menuTextBoxRelay1Name.Text; }
-            else if (relayIndex == 1) { Settings.Default.Relay2Name = menuTextBoxRelay2Name.Text; }
-            else if (relayIndex == 2) { Settings.Default.Relay3Name = menuTextBoxRelay3Name.Text; }
-            else if (relayIndex == 3) { Settings.Default.Relay4Name = menuTextBoxRelay4Name.Text; }
-
-            Settings.Default.Save();
-
-            labelRelay1Name.Text = Settings.Default.Relay1Name;
-            labelRelay2Name.Text = Settings.Default.Relay2Name;
-            labelRelay3Name.Text = Settings.Default.Relay3Name;
-            labelRelay4Name.Text = Settings.Default.Relay4Name;
         }
 
         private void buttonRelay1Schedule_Click(object sender, EventArgs e)
