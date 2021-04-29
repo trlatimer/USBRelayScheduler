@@ -15,5 +15,13 @@ namespace USBRelayScheduler.Resources
             get => ((List<RelaySchedule>)(this["RelaySchedules"]));
             set => this["RelaySchedules"] = value;
         }
+
+        [UserScopedSetting]
+        [DebuggerNonUserCode]
+        public List<bool> RelayForcedStates
+        {
+            get => ((List<bool>)(this["RelayForcedStates"]));
+            set => this["RelayForcedStates"] = value;
+        }
     }
 }

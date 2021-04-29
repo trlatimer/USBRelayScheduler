@@ -29,6 +29,10 @@ namespace USBRelayScheduler
         private void PopulateForm()
         {
             textBoxDeviceAddress.Text = relayDevice.GetSerialNumber();
+            checkBoxRelay1ForceOn.Checked = Settings.Default.RelayForcedStates[0];
+            checkBoxRelay2ForceOn.Checked = Settings.Default.RelayForcedStates[1];
+            checkBoxRelay3ForceOn.Checked = Settings.Default.RelayForcedStates[2];
+            checkBoxRelay4ForceOn.Checked = Settings.Default.RelayForcedStates[3];
         }
 
         private void ResetRelays()
@@ -36,7 +40,7 @@ namespace USBRelayScheduler
             if (relayDevice.GetSerialNumber() == null) return;
             for (int i = 0; i <= 3; i++)
             {
-                relayDevice.SetRelay(i, false);
+                relayDevice.SetRelay(i, Settings.Default.RelayForcedStates[i]); ;
             }
         }
 
@@ -45,24 +49,26 @@ namespace USBRelayScheduler
             if (forceOn)
             {
                 Settings.Default.RelaySchedules[relay].enabled = false;
-                Settings.Default.Save();
+                Settings.Default.RelayForcedStates[relay] = true;
                 if (!relayDevice.SetRelay(relay, true))
                 {
                     ResetForceOn(relay);
                 }
+                Settings.Default.Save();
             }
             else
             {
                 Settings.Default.RelaySchedules[relay].enabled = true;
-                Settings.Default.Save();
+                Settings.Default.RelayForcedStates[relay] = false;
                 relayDevice.CheckRelaySchedules();
+                Settings.Default.Save();
             }
         }
 
         private void ResetForceOn(int relay)
         {
             Settings.Default.RelaySchedules[relay].enabled = true;
-            Settings.Default.Save();
+            Settings.Default.RelayForcedStates[relay] = false;
             if (relay == 0) { checkBoxRelay1ForceOn.Checked = false; }
             else if (relay == 1) { checkBoxRelay2ForceOn.Checked = false; }
             else if (relay == 2) { checkBoxRelay3ForceOn.Checked = false; }

@@ -21,7 +21,7 @@ namespace USBRelayScheduler
             try
             {
                 serialNumber = TctecUSB4.TctecUSB4.getSerialNumbers()[0].ToString();
-                InitializeSchedules();
+                InitializeSettings();
                 StartScheduleTimer();
             }
             catch (ArgumentOutOfRangeException ex)
@@ -104,7 +104,7 @@ namespace USBRelayScheduler
             }
         }
 
-        private static void InitializeSchedules()
+        private static void InitializeSettings()
         {
             if (Settings.Default.RelaySchedules == null)
             {
@@ -113,9 +113,14 @@ namespace USBRelayScheduler
                 {
                     Settings.Default.RelaySchedules.Add(new RelaySchedule());
                 }
-
-                Settings.Default.Save();
             }
+
+            if (Settings.Default.RelayForcedStates == null)
+            {
+                Settings.Default.RelayForcedStates = new List<bool>() { false, false, false, false };
+            }
+
+            Settings.Default.Save();
         }
 
         private void StartScheduleTimer()
