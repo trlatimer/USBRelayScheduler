@@ -101,10 +101,10 @@ namespace USBRelayScheduler
 
             Settings.Default.Save();
 
-            labelRelay1Name.Text = Settings.Default.Relay1Name;
-            labelRelay2Name.Text = Settings.Default.Relay2Name;
-            labelRelay3Name.Text = Settings.Default.Relay3Name;
-            labelRelay4Name.Text = Settings.Default.Relay4Name;
+            labelRelay1Name.Text = Settings.Default.Relay1Name + ":";
+            labelRelay2Name.Text = Settings.Default.Relay2Name + ":";
+            labelRelay3Name.Text = Settings.Default.Relay3Name + ":";
+            labelRelay4Name.Text = Settings.Default.Relay4Name + ":";
         }
 
         private void CheckDeviceStatus(Object source, System.Timers.ElapsedEventArgs e)

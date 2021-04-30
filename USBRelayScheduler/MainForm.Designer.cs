@@ -185,7 +185,7 @@ namespace USBRelayScheduler
             // 
             this.checkBoxRelay1ForceToggle.AutoSize = true;
             this.checkBoxRelay1ForceToggle.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxRelay1ForceToggle.Location = new System.Drawing.Point(217, 185);
+            this.checkBoxRelay1ForceToggle.Location = new System.Drawing.Point(212, 185);
             this.checkBoxRelay1ForceToggle.Name = "checkBoxRelay1ForceToggle";
             this.checkBoxRelay1ForceToggle.Size = new System.Drawing.Size(18, 17);
             this.checkBoxRelay1ForceToggle.TabIndex = 11;
@@ -219,7 +219,7 @@ namespace USBRelayScheduler
             // 
             this.checkBoxRelay2ForceToggle.AutoSize = true;
             this.checkBoxRelay2ForceToggle.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxRelay2ForceToggle.Location = new System.Drawing.Point(217, 227);
+            this.checkBoxRelay2ForceToggle.Location = new System.Drawing.Point(212, 227);
             this.checkBoxRelay2ForceToggle.Name = "checkBoxRelay2ForceToggle";
             this.checkBoxRelay2ForceToggle.Size = new System.Drawing.Size(18, 17);
             this.checkBoxRelay2ForceToggle.TabIndex = 14;
@@ -242,7 +242,7 @@ namespace USBRelayScheduler
             // 
             this.checkBoxRelay3ForceToggle.AutoSize = true;
             this.checkBoxRelay3ForceToggle.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxRelay3ForceToggle.Location = new System.Drawing.Point(217, 267);
+            this.checkBoxRelay3ForceToggle.Location = new System.Drawing.Point(212, 267);
             this.checkBoxRelay3ForceToggle.Name = "checkBoxRelay3ForceToggle";
             this.checkBoxRelay3ForceToggle.Size = new System.Drawing.Size(18, 17);
             this.checkBoxRelay3ForceToggle.TabIndex = 17;
@@ -265,7 +265,7 @@ namespace USBRelayScheduler
             // 
             this.checkBoxRelay4ForceToggle.AutoSize = true;
             this.checkBoxRelay4ForceToggle.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxRelay4ForceToggle.Location = new System.Drawing.Point(217, 307);
+            this.checkBoxRelay4ForceToggle.Location = new System.Drawing.Point(212, 307);
             this.checkBoxRelay4ForceToggle.Name = "checkBoxRelay4ForceToggle";
             this.checkBoxRelay4ForceToggle.Size = new System.Drawing.Size(18, 17);
             this.checkBoxRelay4ForceToggle.TabIndex = 20;
