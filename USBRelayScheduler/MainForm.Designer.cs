@@ -60,6 +60,8 @@ namespace USBRelayScheduler
             this.buttonRelay2Status = new System.Windows.Forms.Button();
             this.buttonRelay3Status = new System.Windows.Forms.Button();
             this.buttonRelay4Status = new System.Windows.Forms.Button();
+            this.menuItemImport = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemExport = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -288,6 +290,8 @@ namespace USBRelayScheduler
             // menuItemFile
             // 
             this.menuItemFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemImport,
+            this.menuItemExport,
             this.menuItemClose});
             this.menuItemFile.Name = "menuItemFile";
             this.menuItemFile.Size = new System.Drawing.Size(46, 24);
@@ -296,7 +300,7 @@ namespace USBRelayScheduler
             // menuItemClose
             // 
             this.menuItemClose.Name = "menuItemClose";
-            this.menuItemClose.Size = new System.Drawing.Size(128, 26);
+            this.menuItemClose.Size = new System.Drawing.Size(137, 26);
             this.menuItemClose.Text = "Close";
             // 
             // menuItemEdit
@@ -373,6 +377,18 @@ namespace USBRelayScheduler
             this.buttonRelay4Status.TabIndex = 27;
             this.buttonRelay4Status.Text = "OFF";
             this.buttonRelay4Status.UseVisualStyleBackColor = true;
+            // 
+            // menuItemImport
+            // 
+            this.menuItemImport.Name = "menuItemImport";
+            this.menuItemImport.Size = new System.Drawing.Size(137, 26);
+            this.menuItemImport.Text = "Import";
+            // 
+            // menuItemExport
+            // 
+            this.menuItemExport.Name = "menuItemExport";
+            this.menuItemExport.Size = new System.Drawing.Size(137, 26);
+            this.menuItemExport.Text = "Export";
             // 
             // MainForm
             // 
@@ -451,6 +467,8 @@ namespace USBRelayScheduler
         private System.Windows.Forms.ToolStripTextBox menuTextBoxRelay3Name;
         private System.Windows.Forms.ToolStripTextBox menuTextBoxRelay4Name;
         private System.Windows.Forms.Button buttonRefreshDeviceAddress;
+        private System.Windows.Forms.ToolStripMenuItem menuItemImport;
+        private System.Windows.Forms.ToolStripMenuItem menuItemExport;
     }
 }
 

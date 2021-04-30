@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using System.Xml.XPath;
 using USBRelayScheduler.Resources;
 
 namespace USBRelayScheduler
@@ -181,6 +185,80 @@ namespace USBRelayScheduler
             relayStatusTimer.Elapsed += CheckDeviceStatus;
         }
 
+        private void ImportSettings()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Config files(*.config) | *.config; *.config*; config | Text files(*.txt) | *.txt | All files (*.*)|*.*";
+            openFileDialog.Title = "Import Settings";
+            openFileDialog.Multiselect = false;
+            openFileDialog.DefaultExt = "config";
+            openFileDialog.CheckFileExists = true;
+            openFileDialog.CheckPathExists = true;
+            DialogResult openResult = openFileDialog.ShowDialog(this);
+            if (openResult == DialogResult.OK)
+            {
+                if (!File.Exists(openFileDialog.FileName))
+                {
+                    MessageBox.Show("Could not open selected file. Please try again.");
+                    return;
+                }
+
+                var appSettings = Settings.Default;
+                try
+                {
+                    var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+                    string appSettingsXmlName = Settings.Default.Context["GroupName"].ToString();
+
+                    // Open settings file as XML
+                    var import = XDocument.Load(openFileDialog.FileName);
+                    // Get the whole XML inside the settings node
+                    var settings = import.XPathSelectElements("//" + appSettingsXmlName);
+
+                    config.GetSectionGroup("userSettings")
+                        .Sections[appSettingsXmlName]
+                        .SectionInformation
+                        .SetRawXml(settings.Single().ToString());
+                    config.Save(ConfigurationSaveMode.Modified);
+                    ConfigurationManager.RefreshSection("userSettings");
+
+                    appSettings.Reload();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Unable to load settings. Reloading previous settings.");
+                    appSettings.Reload();
+                }
+            }
+        }
+
+        private void ExportSettings()
+        {
+            Settings.Default.Save();
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Title = "Export Settings";
+            saveFileDialog.DefaultExt = ".config";
+            saveFileDialog.Filter = "Config files(*.config) | *.config | Text files(*.txt) | *.txt";
+            saveFileDialog.FileName = "userexport";
+            DialogResult saveResult = saveFileDialog.ShowDialog();
+            if (saveResult == DialogResult.OK)
+            {
+                if (saveFileDialog.CheckPathExists)
+                {
+                    bool addExtension = saveFileDialog.AddExtension;
+                    string exportPath = saveFileDialog.FileName;
+                    try
+                    {
+                        config.SaveAs(exportPath);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Unable to export settings file. Please try again.");
+                    }
+                }
+            }  
+        }
+
         private void buttonRefreshDeviceAddress_Click(object sender, EventArgs e)
         {
             RefreshDevice();
@@ -211,7 +289,24 @@ namespace USBRelayScheduler
             menuTextBoxRelay2Name.LostFocus += MenuTextBoxRelay2Name_LostFocus;
             menuTextBoxRelay3Name.LostFocus += MenuTextBoxRelay3Name_LostFocus;
             menuTextBoxRelay4Name.LostFocus += MenuTextBoxRelay4Name_LostFocus;
+            menuItemExport.Click += MenuItemExport_Click;
+            menuItemImport.Click += MenuItemImport_Click;
+            menuItemClose.Click += MenuItemClose_Click;
+        }
 
+        private void MenuItemClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void MenuItemImport_Click(object sender, EventArgs e)
+        {
+            ImportSettings();
+        }
+
+        private void MenuItemExport_Click(object sender, EventArgs e)
+        {
+            ExportSettings();
         }
 
         private void MenuTextBoxRelay1Name_LostFocus(object sender, EventArgs e)
