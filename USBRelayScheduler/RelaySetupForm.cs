@@ -28,7 +28,7 @@ namespace USBRelayScheduler
         private void PopulateFields(int relay)
         {
             if (Settings.Default.RelaySchedules == null) return;
-            if (Settings.Default.RelaySchedules != null && relay >= Settings.Default.RelaySchedules.Count - 1) return;
+            if (Settings.Default.RelaySchedules != null && relay >= Settings.Default.RelaySchedules.Count) return;
             if (Settings.Default.RelaySchedules[relay] == null) { Settings.Default.RelaySchedules[relay] = new RelaySchedule(); }
 
             RelaySchedule selectedSchedule = Settings.Default.RelaySchedules[relay];
@@ -57,6 +57,11 @@ namespace USBRelayScheduler
             dateTimePickerSaturdayEnd.Value = selectedSchedule.schedules[(int)DayOfWeek.Saturday].EndTime;
             dateTimePickerSundayStart.Value = selectedSchedule.schedules[(int)DayOfWeek.Sunday].StartTime;
             dateTimePickerSundayEnd.Value = selectedSchedule.schedules[(int)DayOfWeek.Sunday].EndTime;
+
+            if (relay == 0) { labelRelayName.Text = Settings.Default.Relay1Name; }
+            else if (relay == 1) { labelRelayName.Text = Settings.Default.Relay2Name; }
+            else if (relay == 2) { labelRelayName.Text = Settings.Default.Relay3Name; }
+            else if (relay == 3) { labelRelayName.Text = Settings.Default.Relay4Name; }
         }
 
         private bool ValidateForm()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Text;
+using System.Windows.Forms;
 
 namespace USBRelayScheduler.Resources
 {
@@ -18,9 +19,9 @@ namespace USBRelayScheduler.Resources
 
         [UserScopedSetting]
         [DebuggerNonUserCode]
-        public List<bool> RelayForcedStates
+        public List<CheckState> RelayForcedStates
         {
-            get => ((List<bool>)(this["RelayForcedStates"]));
+            get => ((List<CheckState>)(this["RelayForcedStates"]));
             set => this["RelayForcedStates"] = value;
         }
     }

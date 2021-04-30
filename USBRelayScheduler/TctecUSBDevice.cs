@@ -117,7 +117,7 @@ namespace USBRelayScheduler
 
             if (Settings.Default.RelayForcedStates == null)
             {
-                Settings.Default.RelayForcedStates = new List<bool>() { false, false, false, false };
+                Settings.Default.RelayForcedStates = new List<CheckState>() { CheckState.Unchecked, CheckState.Unchecked, CheckState.Unchecked, CheckState.Unchecked };
             }
 
             Settings.Default.Save();

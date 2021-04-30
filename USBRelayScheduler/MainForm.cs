@@ -29,10 +29,10 @@ namespace USBRelayScheduler
         private void PopulateForm()
         {
             textBoxDeviceAddress.Text = relayDevice.GetSerialNumber();
-            checkBoxRelay1ForceOn.Checked = Settings.Default.RelayForcedStates[0];
-            checkBoxRelay2ForceOn.Checked = Settings.Default.RelayForcedStates[1];
-            checkBoxRelay3ForceOn.Checked = Settings.Default.RelayForcedStates[2];
-            checkBoxRelay4ForceOn.Checked = Settings.Default.RelayForcedStates[3];
+            checkBoxRelay1ForceToggle.CheckState = Settings.Default.RelayForcedStates[0];
+            checkBoxRelay2ForceToggle.CheckState = Settings.Default.RelayForcedStates[1];
+            checkBoxRelay3ForceToggle.CheckState = Settings.Default.RelayForcedStates[2];
+            checkBoxRelay4ForceToggle.CheckState = Settings.Default.RelayForcedStates[3];
         }
 
         private void ResetRelays()
@@ -40,39 +40,56 @@ namespace USBRelayScheduler
             if (relayDevice.GetSerialNumber() == null) return;
             for (int i = 0; i <= 3; i++)
             {
-                relayDevice.SetRelay(i, Settings.Default.RelayForcedStates[i]); ;
+                if (Settings.Default.RelayForcedStates[i] == CheckState.Checked)
+                {
+                    relayDevice.SetRelay(i, true);
+                }
+                else
+                {
+                    relayDevice.SetRelay(i, false);
+                } 
             }
         }
 
-        private void ToggleRelayForce(int relay, bool forceOn)
+        private void ToggleRelayForce(int relay, CheckState forceState)
         {
-            if (forceOn)
+            if (forceState == CheckState.Checked)
             {
                 Settings.Default.RelaySchedules[relay].enabled = false;
-                Settings.Default.RelayForcedStates[relay] = true;
+                Settings.Default.RelayForcedStates[relay] = CheckState.Checked;
                 if (!relayDevice.SetRelay(relay, true))
                 {
-                    ResetForceOn(relay);
+                    ResetForceState(relay);
+                }
+                Settings.Default.Save();
+            }
+            else if (forceState == CheckState.Indeterminate)
+            {
+                Settings.Default.RelaySchedules[relay].enabled = false;
+                Settings.Default.RelayForcedStates[relay] = CheckState.Indeterminate;
+                if (!relayDevice.SetRelay(relay, false))
+                {
+                    ResetForceState(relay);
                 }
                 Settings.Default.Save();
             }
             else
             {
                 Settings.Default.RelaySchedules[relay].enabled = true;
-                Settings.Default.RelayForcedStates[relay] = false;
+                Settings.Default.RelayForcedStates[relay] = CheckState.Unchecked;
                 relayDevice.CheckRelaySchedules();
                 Settings.Default.Save();
             }
         }
 
-        private void ResetForceOn(int relay)
+        private void ResetForceState(int relay)
         {
             Settings.Default.RelaySchedules[relay].enabled = true;
-            Settings.Default.RelayForcedStates[relay] = false;
-            if (relay == 0) { checkBoxRelay1ForceOn.Checked = false; }
-            else if (relay == 1) { checkBoxRelay2ForceOn.Checked = false; }
-            else if (relay == 2) { checkBoxRelay3ForceOn.Checked = false; }
-            else if (relay == 3) { checkBoxRelay4ForceOn.Checked = false; }
+            Settings.Default.RelayForcedStates[relay] = CheckState.Unchecked;
+            if (relay == 0) { checkBoxRelay1ForceToggle.Checked = false; }
+            else if (relay == 1) { checkBoxRelay2ForceToggle.Checked = false; }
+            else if (relay == 2) { checkBoxRelay3ForceToggle.Checked = false; }
+            else if (relay == 3) { checkBoxRelay4ForceToggle.Checked = false; }
         }
 
         private void HandleRelayNamechange(int relayIndex)
@@ -169,26 +186,6 @@ namespace USBRelayScheduler
             RefreshDevice();
         }
 
-        private void checkBoxRelay1ForceOn_CheckedChanged(object sender, EventArgs e)
-        {
-            ToggleRelayForce(0, checkBoxRelay1ForceOn.Checked);
-        }
-
-        private void checkBoxRelay2ForceOn_CheckedChanged(object sender, EventArgs e)
-        {
-            ToggleRelayForce(1, checkBoxRelay2ForceOn.Checked);
-        }
-
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-            ToggleRelayForce(2, checkBoxRelay3ForceOn.Checked);
-        }
-
-        private void checkBox4_CheckedChanged(object sender, EventArgs e)
-        {
-            ToggleRelayForce(3, checkBoxRelay4ForceOn.Checked);
-        }
-
         private void MainForm_FormClosing(object sender, EventArgs e)
         {
             relayStatusTimer.Stop();
@@ -259,6 +256,26 @@ namespace USBRelayScheduler
         {
             RelaySetupForm relaySetupForm = new RelaySetupForm(3);
             relaySetupForm.Show();
+        }
+
+        private void checkBoxRelay1ForceOn_CheckedStateChanged(object sender, EventArgs e)
+        {
+            ToggleRelayForce(0, checkBoxRelay1ForceToggle.CheckState);
+        }
+
+        private void checkBoxRelay2ForceOn_CheckedStateChanged(object sender, EventArgs e)
+        {
+            ToggleRelayForce(1, checkBoxRelay2ForceToggle.CheckState);
+        }
+
+        private void checkBoxRelay3ForceOn_CheckedStateChanged(object sender, EventArgs e)
+        {
+            ToggleRelayForce(2, checkBoxRelay3ForceToggle.CheckState);
+        }
+
+        private void checkBoxRelay4ForceOn_CheckedStateChanged(object sender, EventArgs e)
+        {
+            ToggleRelayForce(3, checkBoxRelay4ForceToggle.CheckState);
         }
     }
 }
