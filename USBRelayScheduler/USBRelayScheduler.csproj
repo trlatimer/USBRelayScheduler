@@ -6,6 +6,12 @@
     <UseWindowsForms>true</UseWindowsForms>
     <Platforms>AnyCPU;x86</Platforms>
     <StartupObject>USBRelayScheduler.Program</StartupObject>
+    <Authors>Tyler Latimer</Authors>
+    <Company>Component Tinning Services</Company>
+    <Product>USB Relay Scheduler</Product>
+    <Description>GUI for interacting with and applying schedules to a Tctec USB 4 relay device</Description>
+    <RepositoryUrl>https://github.com/trlatimer/USBRelayScheduler</RepositoryUrl>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
 
   <ItemGroup>
