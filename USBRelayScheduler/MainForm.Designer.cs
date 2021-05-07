@@ -50,6 +50,8 @@ namespace USBRelayScheduler
             this.checkBoxRelay4ForceToggle = new System.Windows.Forms.CheckBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuItemFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemImport = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemExport = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemClose = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuTextBoxRelay1Name = new System.Windows.Forms.ToolStripTextBox();
@@ -60,8 +62,6 @@ namespace USBRelayScheduler
             this.buttonRelay2Status = new System.Windows.Forms.Button();
             this.buttonRelay3Status = new System.Windows.Forms.Button();
             this.buttonRelay4Status = new System.Windows.Forms.Button();
-            this.menuItemImport = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItemExport = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -70,7 +70,7 @@ namespace USBRelayScheduler
             // 
             this.pictureBoxLogo.BackColor = System.Drawing.SystemColors.Control;
             this.pictureBoxLogo.Image = global::USBRelayScheduler.Resources.Resource.CTS_Logo;
-            this.pictureBoxLogo.Location = new System.Drawing.Point(14, 28);
+            this.pictureBoxLogo.Location = new System.Drawing.Point(35, 30);
             this.pictureBoxLogo.Name = "pictureBoxLogo";
             this.pictureBoxLogo.Size = new System.Drawing.Size(228, 55);
             this.pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -81,17 +81,17 @@ namespace USBRelayScheduler
             // 
             this.labelFormTitle.AutoSize = true;
             this.labelFormTitle.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelFormTitle.Location = new System.Drawing.Point(257, 34);
+            this.labelFormTitle.Location = new System.Drawing.Point(290, 40);
             this.labelFormTitle.Name = "labelFormTitle";
-            this.labelFormTitle.Size = new System.Drawing.Size(318, 45);
+            this.labelFormTitle.Size = new System.Drawing.Size(163, 45);
             this.labelFormTitle.TabIndex = 1;
-            this.labelFormTitle.Text = "USB Relay Scheduler";
+            this.labelFormTitle.Text = "Scheduler";
             // 
             // labelDeviceAddress
             // 
             this.labelDeviceAddress.AutoSize = true;
             this.labelDeviceAddress.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelDeviceAddress.Location = new System.Drawing.Point(74, 107);
+            this.labelDeviceAddress.Location = new System.Drawing.Point(39, 101);
             this.labelDeviceAddress.Name = "labelDeviceAddress";
             this.labelDeviceAddress.Size = new System.Drawing.Size(138, 25);
             this.labelDeviceAddress.TabIndex = 2;
@@ -99,7 +99,7 @@ namespace USBRelayScheduler
             // 
             // textBoxDeviceAddress
             // 
-            this.textBoxDeviceAddress.Location = new System.Drawing.Point(214, 104);
+            this.textBoxDeviceAddress.Location = new System.Drawing.Point(179, 98);
             this.textBoxDeviceAddress.Name = "textBoxDeviceAddress";
             this.textBoxDeviceAddress.Size = new System.Drawing.Size(176, 31);
             this.textBoxDeviceAddress.TabIndex = 3;
@@ -107,7 +107,7 @@ namespace USBRelayScheduler
             // buttonRefreshDeviceAddress
             // 
             this.buttonRefreshDeviceAddress.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonRefreshDeviceAddress.Location = new System.Drawing.Point(404, 104);
+            this.buttonRefreshDeviceAddress.Location = new System.Drawing.Point(369, 98);
             this.buttonRefreshDeviceAddress.Name = "buttonRefreshDeviceAddress";
             this.buttonRefreshDeviceAddress.Size = new System.Drawing.Size(102, 31);
             this.buttonRefreshDeviceAddress.TabIndex = 4;
@@ -119,7 +119,7 @@ namespace USBRelayScheduler
             // 
             this.labelForceOnOff.AutoSize = true;
             this.labelForceOnOff.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelForceOnOff.Location = new System.Drawing.Point(162, 147);
+            this.labelForceOnOff.Location = new System.Drawing.Point(127, 141);
             this.labelForceOnOff.Name = "labelForceOnOff";
             this.labelForceOnOff.Size = new System.Drawing.Size(117, 25);
             this.labelForceOnOff.TabIndex = 5;
@@ -129,7 +129,7 @@ namespace USBRelayScheduler
             // 
             this.labelRelayOn.AutoSize = true;
             this.labelRelayOn.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelRelayOn.Location = new System.Drawing.Point(298, 147);
+            this.labelRelayOn.Location = new System.Drawing.Point(263, 141);
             this.labelRelayOn.Name = "labelRelayOn";
             this.labelRelayOn.Size = new System.Drawing.Size(60, 25);
             this.labelRelayOn.TabIndex = 6;
@@ -139,7 +139,7 @@ namespace USBRelayScheduler
             // 
             this.labelRelay1Name.AutoSize = true;
             this.labelRelay1Name.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelRelay1Name.Location = new System.Drawing.Point(70, 180);
+            this.labelRelay1Name.Location = new System.Drawing.Point(25, 174);
             this.labelRelay1Name.Name = "labelRelay1Name";
             this.labelRelay1Name.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.labelRelay1Name.Size = new System.Drawing.Size(67, 25);
@@ -151,7 +151,7 @@ namespace USBRelayScheduler
             // 
             this.labelRelay2Name.AutoSize = true;
             this.labelRelay2Name.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelRelay2Name.Location = new System.Drawing.Point(70, 222);
+            this.labelRelay2Name.Location = new System.Drawing.Point(25, 216);
             this.labelRelay2Name.Name = "labelRelay2Name";
             this.labelRelay2Name.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.labelRelay2Name.Size = new System.Drawing.Size(72, 25);
@@ -163,7 +163,7 @@ namespace USBRelayScheduler
             // 
             this.labelRelay3Name.AutoSize = true;
             this.labelRelay3Name.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelRelay3Name.Location = new System.Drawing.Point(70, 262);
+            this.labelRelay3Name.Location = new System.Drawing.Point(25, 256);
             this.labelRelay3Name.Name = "labelRelay3Name";
             this.labelRelay3Name.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.labelRelay3Name.Size = new System.Drawing.Size(72, 25);
@@ -175,7 +175,7 @@ namespace USBRelayScheduler
             // 
             this.labelRelay4Name.AutoSize = true;
             this.labelRelay4Name.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelRelay4Name.Location = new System.Drawing.Point(70, 302);
+            this.labelRelay4Name.Location = new System.Drawing.Point(25, 296);
             this.labelRelay4Name.Name = "labelRelay4Name";
             this.labelRelay4Name.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.labelRelay4Name.Size = new System.Drawing.Size(72, 25);
@@ -187,7 +187,7 @@ namespace USBRelayScheduler
             // 
             this.checkBoxRelay1ForceToggle.AutoSize = true;
             this.checkBoxRelay1ForceToggle.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxRelay1ForceToggle.Location = new System.Drawing.Point(212, 185);
+            this.checkBoxRelay1ForceToggle.Location = new System.Drawing.Point(177, 179);
             this.checkBoxRelay1ForceToggle.Name = "checkBoxRelay1ForceToggle";
             this.checkBoxRelay1ForceToggle.Size = new System.Drawing.Size(18, 17);
             this.checkBoxRelay1ForceToggle.TabIndex = 11;
@@ -198,7 +198,7 @@ namespace USBRelayScheduler
             // buttonRelay1Schedule
             // 
             this.buttonRelay1Schedule.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonRelay1Schedule.Location = new System.Drawing.Point(388, 177);
+            this.buttonRelay1Schedule.Location = new System.Drawing.Point(353, 171);
             this.buttonRelay1Schedule.Name = "buttonRelay1Schedule";
             this.buttonRelay1Schedule.Size = new System.Drawing.Size(121, 31);
             this.buttonRelay1Schedule.TabIndex = 13;
@@ -209,7 +209,7 @@ namespace USBRelayScheduler
             // buttonRelay2Schedule
             // 
             this.buttonRelay2Schedule.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonRelay2Schedule.Location = new System.Drawing.Point(388, 219);
+            this.buttonRelay2Schedule.Location = new System.Drawing.Point(353, 213);
             this.buttonRelay2Schedule.Name = "buttonRelay2Schedule";
             this.buttonRelay2Schedule.Size = new System.Drawing.Size(121, 31);
             this.buttonRelay2Schedule.TabIndex = 16;
@@ -221,7 +221,7 @@ namespace USBRelayScheduler
             // 
             this.checkBoxRelay2ForceToggle.AutoSize = true;
             this.checkBoxRelay2ForceToggle.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxRelay2ForceToggle.Location = new System.Drawing.Point(212, 227);
+            this.checkBoxRelay2ForceToggle.Location = new System.Drawing.Point(177, 221);
             this.checkBoxRelay2ForceToggle.Name = "checkBoxRelay2ForceToggle";
             this.checkBoxRelay2ForceToggle.Size = new System.Drawing.Size(18, 17);
             this.checkBoxRelay2ForceToggle.TabIndex = 14;
@@ -232,7 +232,7 @@ namespace USBRelayScheduler
             // buttonRelay3Schedule
             // 
             this.buttonRelay3Schedule.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonRelay3Schedule.Location = new System.Drawing.Point(388, 259);
+            this.buttonRelay3Schedule.Location = new System.Drawing.Point(353, 253);
             this.buttonRelay3Schedule.Name = "buttonRelay3Schedule";
             this.buttonRelay3Schedule.Size = new System.Drawing.Size(121, 31);
             this.buttonRelay3Schedule.TabIndex = 19;
@@ -244,7 +244,7 @@ namespace USBRelayScheduler
             // 
             this.checkBoxRelay3ForceToggle.AutoSize = true;
             this.checkBoxRelay3ForceToggle.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxRelay3ForceToggle.Location = new System.Drawing.Point(212, 267);
+            this.checkBoxRelay3ForceToggle.Location = new System.Drawing.Point(177, 261);
             this.checkBoxRelay3ForceToggle.Name = "checkBoxRelay3ForceToggle";
             this.checkBoxRelay3ForceToggle.Size = new System.Drawing.Size(18, 17);
             this.checkBoxRelay3ForceToggle.TabIndex = 17;
@@ -255,7 +255,7 @@ namespace USBRelayScheduler
             // buttonRelay4Schedule
             // 
             this.buttonRelay4Schedule.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonRelay4Schedule.Location = new System.Drawing.Point(388, 299);
+            this.buttonRelay4Schedule.Location = new System.Drawing.Point(353, 293);
             this.buttonRelay4Schedule.Name = "buttonRelay4Schedule";
             this.buttonRelay4Schedule.Size = new System.Drawing.Size(121, 31);
             this.buttonRelay4Schedule.TabIndex = 22;
@@ -267,7 +267,7 @@ namespace USBRelayScheduler
             // 
             this.checkBoxRelay4ForceToggle.AutoSize = true;
             this.checkBoxRelay4ForceToggle.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.checkBoxRelay4ForceToggle.Location = new System.Drawing.Point(212, 307);
+            this.checkBoxRelay4ForceToggle.Location = new System.Drawing.Point(177, 301);
             this.checkBoxRelay4ForceToggle.Name = "checkBoxRelay4ForceToggle";
             this.checkBoxRelay4ForceToggle.Size = new System.Drawing.Size(18, 17);
             this.checkBoxRelay4ForceToggle.TabIndex = 20;
@@ -283,7 +283,7 @@ namespace USBRelayScheduler
             this.menuItemEdit});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(584, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(508, 28);
             this.menuStrip1.TabIndex = 23;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -296,6 +296,18 @@ namespace USBRelayScheduler
             this.menuItemFile.Name = "menuItemFile";
             this.menuItemFile.Size = new System.Drawing.Size(46, 24);
             this.menuItemFile.Text = "File";
+            // 
+            // menuItemImport
+            // 
+            this.menuItemImport.Name = "menuItemImport";
+            this.menuItemImport.Size = new System.Drawing.Size(137, 26);
+            this.menuItemImport.Text = "Import";
+            // 
+            // menuItemExport
+            // 
+            this.menuItemExport.Name = "menuItemExport";
+            this.menuItemExport.Size = new System.Drawing.Size(137, 26);
+            this.menuItemExport.Text = "Export";
             // 
             // menuItemClose
             // 
@@ -341,7 +353,7 @@ namespace USBRelayScheduler
             // buttonRelay1Status
             // 
             this.buttonRelay1Status.Enabled = false;
-            this.buttonRelay1Status.Location = new System.Drawing.Point(296, 177);
+            this.buttonRelay1Status.Location = new System.Drawing.Point(261, 171);
             this.buttonRelay1Status.Name = "buttonRelay1Status";
             this.buttonRelay1Status.Size = new System.Drawing.Size(56, 31);
             this.buttonRelay1Status.TabIndex = 24;
@@ -351,7 +363,7 @@ namespace USBRelayScheduler
             // buttonRelay2Status
             // 
             this.buttonRelay2Status.Enabled = false;
-            this.buttonRelay2Status.Location = new System.Drawing.Point(296, 219);
+            this.buttonRelay2Status.Location = new System.Drawing.Point(261, 213);
             this.buttonRelay2Status.Name = "buttonRelay2Status";
             this.buttonRelay2Status.Size = new System.Drawing.Size(56, 31);
             this.buttonRelay2Status.TabIndex = 25;
@@ -361,7 +373,7 @@ namespace USBRelayScheduler
             // buttonRelay3Status
             // 
             this.buttonRelay3Status.Enabled = false;
-            this.buttonRelay3Status.Location = new System.Drawing.Point(296, 259);
+            this.buttonRelay3Status.Location = new System.Drawing.Point(261, 253);
             this.buttonRelay3Status.Name = "buttonRelay3Status";
             this.buttonRelay3Status.Size = new System.Drawing.Size(56, 31);
             this.buttonRelay3Status.TabIndex = 26;
@@ -371,31 +383,19 @@ namespace USBRelayScheduler
             // buttonRelay4Status
             // 
             this.buttonRelay4Status.Enabled = false;
-            this.buttonRelay4Status.Location = new System.Drawing.Point(296, 299);
+            this.buttonRelay4Status.Location = new System.Drawing.Point(261, 293);
             this.buttonRelay4Status.Name = "buttonRelay4Status";
             this.buttonRelay4Status.Size = new System.Drawing.Size(56, 31);
             this.buttonRelay4Status.TabIndex = 27;
             this.buttonRelay4Status.Text = "OFF";
             this.buttonRelay4Status.UseVisualStyleBackColor = true;
             // 
-            // menuItemImport
-            // 
-            this.menuItemImport.Name = "menuItemImport";
-            this.menuItemImport.Size = new System.Drawing.Size(137, 26);
-            this.menuItemImport.Text = "Import";
-            // 
-            // menuItemExport
-            // 
-            this.menuItemExport.Name = "menuItemExport";
-            this.menuItemExport.Size = new System.Drawing.Size(137, 26);
-            this.menuItemExport.Text = "Export";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(584, 346);
+            this.ClientSize = new System.Drawing.Size(508, 346);
             this.Controls.Add(this.buttonRelay4Status);
             this.Controls.Add(this.buttonRelay3Status);
             this.Controls.Add(this.buttonRelay2Status);

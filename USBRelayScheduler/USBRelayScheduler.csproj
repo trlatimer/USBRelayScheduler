@@ -12,6 +12,7 @@
     <Description>GUI for interacting with and applying schedules to a Tctec USB 4 relay device</Description>
     <RepositoryUrl>https://github.com/trlatimer/USBRelayScheduler</RepositoryUrl>
     <SignAssembly>false</SignAssembly>
+    <ApplicationIcon>CTS_ICO1.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>

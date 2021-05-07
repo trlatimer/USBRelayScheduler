@@ -33,6 +33,7 @@ namespace USBRelayScheduler
         private void PopulateForm()
         {
             textBoxDeviceAddress.Text = relayDevice.GetSerialNumber();
+            if (Settings.Default.RelayForcedStates == null) { return; }
             checkBoxRelay1ForceToggle.CheckState = Settings.Default.RelayForcedStates[0];
             checkBoxRelay2ForceToggle.CheckState = Settings.Default.RelayForcedStates[1];
             checkBoxRelay3ForceToggle.CheckState = Settings.Default.RelayForcedStates[2];
