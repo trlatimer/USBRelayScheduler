@@ -16,6 +16,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Reference Include="FTD2XX_NET">
+      <HintPath>libs\FTD2XX_NET.dll</HintPath>
+    </Reference>
     <Reference Include="TctecUSB4">
       <HintPath>..\..\..\..\Downloads\tctecUSB4_dll_2_6_0_0\TctecUSB4.dll</HintPath>
       <Private>true</Private>
