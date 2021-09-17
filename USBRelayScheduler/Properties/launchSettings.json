@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "USBRelayScheduler": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}

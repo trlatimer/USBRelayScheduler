@@ -20,13 +20,13 @@ namespace USBRelayScheduler
 {
     public partial class MainForm : Form
     {
-        private TctecUSBDevice relayDevice;
+        private RelayDeviceBase relayDevice;
         private System.Timers.Timer relayStatusTimer;
 
         public MainForm()
         {
             InitializeComponent();
-            relayDevice = new TctecUSBDevice();
+            InitializeRelayDevice();
             ResetRelays();
             PopulateForm();
         }
@@ -39,6 +39,23 @@ namespace USBRelayScheduler
             checkBoxRelay2ForceToggle.CheckState = Settings.Default.RelayForcedStates[1];
             checkBoxRelay3ForceToggle.CheckState = Settings.Default.RelayForcedStates[2];
             checkBoxRelay4ForceToggle.CheckState = Settings.Default.RelayForcedStates[3];
+        }
+
+        private void InitializeRelayDevice()
+        {
+            try
+            {
+                string serial = TctecUSB4.TctecUSB4.getSerialNumbers()[0].ToString();
+                relayDevice = new TctecUSBDevice();
+            }
+            catch(ArgumentOutOfRangeException ex)
+            {
+                relayDevice = new FTDIRelayDevice();
+                if (relayDevice.GetSerialNumber() == null)
+                {
+                    MessageBox.Show("Unable to find a Tctec USB Relay device, please reconnect and try again.", "No Devices", MessageBoxButtons.OK);
+                }
+            }
         }
 
         private void ResetRelays()
@@ -182,7 +199,7 @@ namespace USBRelayScheduler
         {
             relayStatusTimer.Elapsed -= CheckDeviceStatus;
             relayDevice = null;
-            relayDevice = new TctecUSBDevice();
+            InitializeRelayDevice();
             textBoxDeviceAddress.Text = relayDevice.GetSerialNumber();
             relayStatusTimer.Elapsed += CheckDeviceStatus;
         }

@@ -15,9 +15,17 @@
     <ApplicationIcon>CTS_ICO1.ico</ApplicationIcon>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>false</Optimize>
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
   <ItemGroup>
     <Reference Include="FTD2XX_NET">
       <HintPath>libs\FTD2XX_NET.dll</HintPath>
+      <Private>true</Private>
     </Reference>
     <Reference Include="TctecUSB4">
       <HintPath>..\..\..\..\Downloads\tctecUSB4_dll_2_6_0_0\TctecUSB4.dll</HintPath>
