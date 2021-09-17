@@ -1,75 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading;
-using System.Windows.Forms;
-using TctecUSB4;
 using USBRelayScheduler.Resources;
+using System.Windows.Forms;
 
-namespace USBRelayScheduler
+namespace USBRelayScheduler.RelayDevices
 {
-    public class TctecUSBDevice
+    public abstract class RelayDeviceBase
     {
-        private string serialNumber;
-        private bool[] currentRelayStates = new bool[] {false, false, false, false };
         public System.Windows.Forms.Timer relayScheduleTimer;
 
-        private readonly byte[] RELAYBYTES = { 0x01, 0x02, 0x04, 0x08 };
-
-        public TctecUSBDevice()
+        public RelayDeviceBase()
         {
             try
             {
-                serialNumber = TctecUSB4.TctecUSB4.getSerialNumbers()[0].ToString();
                 InitializeSettings();
                 StartScheduleTimer();
             }
             catch (ArgumentOutOfRangeException ex)
             {
-                MessageBox.Show("Unable to find a Tctec USB Relay device, please reconnect and try again.", "No Devices", MessageBoxButtons.OK);
-            }     
-        }
-
-        public TctecUSBDevice(string serialNum)
-        {
-            serialNumber = serialNum;
-        }
-
-        public bool GetRelayState(int relay)
-        {
-            return currentRelayStates[relay ];
-        }
-        
-        public string GetSerialNumber()
-        {
-            return serialNumber;
-        }
-
-        public bool SetRelay(int relay, bool on)
-        {
-            int success = 0;
-            if (on)
-            {
-                success = TctecUSB4.TctecUSB4.setBits(serialNumber, RELAYBYTES[relay], true);
-                if (success == 1)
-                {
-                    MessageBox.Show("Unable to set relay, please check connection.", "Unable to connect", MessageBoxButtons.OK);
-                    return false;
-                }
-                currentRelayStates[relay] = true;
+                MessageBox.Show("Unable to initialize settings and start timers, please reconnect and try again.", "Failed to Initialize", MessageBoxButtons.OK);
             }
-            else
-            {
-                success = TctecUSB4.TctecUSB4.setBits(serialNumber, RELAYBYTES[relay], false);
-                if (success == 1)
-                {
-                    MessageBox.Show("Unable to set relay, please check connection.", "Unable to connect", MessageBoxButtons.OK);
-                    return false;
-                }
-                currentRelayStates[relay] = false;
-            }
-            return true;
         }
+
+        public abstract bool GetRelayState(int relay);
+        public abstract string GetSerialNumber();
+        public abstract bool SetRelay(int relay, bool on);
 
         public void CheckRelaySchedules()
         {

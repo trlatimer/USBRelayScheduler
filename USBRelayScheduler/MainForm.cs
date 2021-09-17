@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using USBRelayScheduler.Resources;
+using USBRelayScheduler.RelayDevices;
 
 namespace USBRelayScheduler
 {
