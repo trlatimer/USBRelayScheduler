@@ -35,13 +35,29 @@ namespace USBRelayScheduler.RelayDevices
         public FTDIRelayDevice(string serialNum) : base()
         {
             serialNumber = serialNum;
+            InitializeDevice(serialNumber);
+            FTDI.FT_STATUS connected = FTDIDevice.GetSerialNumber(out serialNumber);
+            if (connected != FTDI.FT_STATUS.FT_OK)
+            {
+                MessageBox.Show("Unable to find a FTDI USB Relay device, please reconnect and try again.", "No Devices", MessageBoxButtons.OK);
+            }
         }
 
-        private bool InitializeDevice()
+        private bool InitializeDevice(string serial = "")
         {
-            // Grab the first FTDI device found
-            FTDI.FT_STATUS deviceStatus = FTDIDevice.OpenByIndex(0);
-            if (deviceStatus != FTDI.FT_STATUS.FT_OK) return false;
+            FTDI.FT_STATUS deviceStatus;
+            if (serial != "")
+            {
+                // Open the device based on serial number
+                deviceStatus = FTDIDevice.OpenBySerialNumber(serial);
+                if (deviceStatus != FTDI.FT_STATUS.FT_OK) return false;
+            }
+            else
+            {
+                // Grab the first FTDI device found
+                deviceStatus = FTDIDevice.OpenByIndex(0);
+                if (deviceStatus != FTDI.FT_STATUS.FT_OK) return false;
+            }
 
             // Reset the device and check status again
             deviceStatus = FTDIDevice.ResetDevice();
