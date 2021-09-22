@@ -15,7 +15,6 @@ namespace USBRelayScheduler.RelayDevices
             try
             {
                 InitializeSettings();
-                StartScheduleTimer();
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -26,6 +25,7 @@ namespace USBRelayScheduler.RelayDevices
         public abstract bool GetRelayState(int relay);
         public abstract string GetSerialNumber();
         public abstract bool SetRelay(int relay, bool on);
+        public abstract void Close();
 
         public void CheckRelaySchedules()
         {
@@ -46,16 +46,16 @@ namespace USBRelayScheduler.RelayDevices
                     TimeSpan endTime = relaySchedules[i].schedules[currentDay].EndTime.TimeOfDay;
                     if (currentTime >= startTime && currentTime < endTime && !GetRelayState(i))
                     {
-                        SetRelay(i, true);
+                        if (!SetRelay(i, true)) break;
                     }
                     else if (currentTime >= relaySchedules[i].schedules[currentDay].EndTime.TimeOfDay && GetRelayState(i))
                     {
-                        SetRelay(i, false);
+                        if (!SetRelay(i, false)) break;
                     }
                 }
                 else
                 {
-                    SetRelay(i, false);
+                    if (!SetRelay(i, false)) break;
                 }
             }
         }
@@ -79,7 +79,7 @@ namespace USBRelayScheduler.RelayDevices
             Settings.Default.Save();
         }
 
-        private void StartScheduleTimer()
+        public void StartScheduleTimer()
         {
             relayScheduleTimer = new System.Windows.Forms.Timer();
             relayScheduleTimer.Interval = 5000; // Every 5 seconds
@@ -88,11 +88,23 @@ namespace USBRelayScheduler.RelayDevices
             relayScheduleTimer.Start();
         }
 
+        public void StopScheduleTimer()
+        {   
+            if (relayScheduleTimer != null)
+            {
+                relayScheduleTimer.Tick -= RelayScheduleTimer_Tick;
+                relayScheduleTimer.Stop();
+                relayScheduleTimer.Enabled = false;
+                relayScheduleTimer = null;
+            }
+        }
+
         private void RelayScheduleTimer_Tick(object sender, EventArgs e)
         {
             relayScheduleTimer.Tick -= RelayScheduleTimer_Tick;
             CheckRelaySchedules();
-            relayScheduleTimer.Tick += RelayScheduleTimer_Tick;
+            if (relayScheduleTimer != null)
+                relayScheduleTimer.Tick += RelayScheduleTimer_Tick;
         }
     }
 }

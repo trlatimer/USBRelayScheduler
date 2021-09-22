@@ -20,11 +20,6 @@ namespace USBRelayScheduler.RelayDevices
             try
             {
                 InitializeDevice();
-                FTDI.FT_STATUS connected = FTDIDevice.GetSerialNumber(out serialNumber);
-                if (connected != FTDI.FT_STATUS.FT_OK)
-                {
-                    MessageBox.Show("Unable to find a FTDI USB Relay device, please reconnect and try again.", "No Devices", MessageBoxButtons.OK);
-                }
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -41,6 +36,21 @@ namespace USBRelayScheduler.RelayDevices
             {
                 MessageBox.Show("Unable to find a FTDI USB Relay device, please reconnect and try again.", "No Devices", MessageBoxButtons.OK);
             }
+        }
+
+        public bool CheckDeviceStatus()
+        {
+            FTDI.FT_STATUS connected = FTDIDevice.GetSerialNumber(out serialNumber);
+            if (connected != FTDI.FT_STATUS.FT_OK)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public override void Close()
+        {
+            FTDIDevice.Close();
         }
 
         private bool InitializeDevice(string serial = "")
@@ -88,7 +98,11 @@ namespace USBRelayScheduler.RelayDevices
 
         public override string GetSerialNumber()
         {
-            return serialNumber;
+            if (serialNumber != "")
+            {
+                return serialNumber;
+            }
+            return null;
         }
 
         public override bool SetRelay(int relay, bool on)
@@ -103,6 +117,10 @@ namespace USBRelayScheduler.RelayDevices
                 if (setStatus != FTDI.FT_STATUS.FT_OK)
                 {
                     MessageBox.Show("Unable to set relay, please check connection.", "Unable to connect", MessageBoxButtons.OK);
+                    if (relayScheduleTimer != null)
+                    {
+                        StopScheduleTimer();
+                    }
                     return false;
                 }
                 currentRelayStates[relay] = true;
@@ -114,7 +132,11 @@ namespace USBRelayScheduler.RelayDevices
                 if (setStatus != FTDI.FT_STATUS.FT_OK)
                 {
                     MessageBox.Show("Unable to set relay, please check connection.", "Unable to connect", MessageBoxButtons.OK);
-                    return false;
+                    if (relayScheduleTimer != null)
+                    {
+                        StopScheduleTimer();
+                    }
+                    return false;   
                 }
                 currentRelayStates[relay] = false;
             }

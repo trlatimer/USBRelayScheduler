@@ -26,14 +26,22 @@ namespace USBRelayScheduler
         public MainForm()
         {
             InitializeComponent();
-            InitializeRelayDevice();
-            ResetRelays();
+            if (InitializeRelayDevice())
+            {
+                ResetRelays();
+                relayDevice.StartScheduleTimer();
+            }
+            
             PopulateForm();
         }
 
         private void PopulateForm()
         {
-            textBoxDeviceAddress.Text = relayDevice.GetSerialNumber();
+            if (relayDevice == null)
+                textBoxDeviceAddress.Text = "";
+            else
+                textBoxDeviceAddress.Text = relayDevice.GetSerialNumber();
+
             if (Settings.Default.RelayForcedStates == null) { return; }
             checkBoxRelay1ForceToggle.CheckState = Settings.Default.RelayForcedStates[0];
             checkBoxRelay2ForceToggle.CheckState = Settings.Default.RelayForcedStates[1];
@@ -41,21 +49,42 @@ namespace USBRelayScheduler
             checkBoxRelay4ForceToggle.CheckState = Settings.Default.RelayForcedStates[3];
         }
 
-        private void InitializeRelayDevice()
+        private bool InitializeRelayDevice()
+        {
+            relayDevice = InitializeTctecDevice();
+            if (relayDevice == null)
+            {
+                relayDevice = InitializeFTDIDevice();
+                if (relayDevice == null)
+                {
+                    MessageBox.Show("Unable to locate a relay device. Please reconnect and try again.");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private RelayDeviceBase InitializeTctecDevice()
         {
             try
             {
                 string serial = TctecUSB4.TctecUSB4.getSerialNumbers()[0].ToString();
-                relayDevice = new TctecUSBDevice();
+                return new TctecUSBDevice();
             }
-            catch(ArgumentOutOfRangeException ex)
+            catch (ArgumentOutOfRangeException)
             {
-                relayDevice = new FTDIRelayDevice();
-                if (relayDevice.GetSerialNumber() == null)
-                {
-                    MessageBox.Show("Unable to find a Tctec USB Relay device, please reconnect and try again.", "No Devices", MessageBoxButtons.OK);
-                }
+                return null;
             }
+        }
+
+        private RelayDeviceBase InitializeFTDIDevice()
+        {
+            FTDIRelayDevice tempDevice = new FTDIRelayDevice();
+            if (!tempDevice.CheckDeviceStatus())
+            {
+                return null;
+            }
+            return tempDevice;
         }
 
         private void ResetRelays()
@@ -65,17 +94,18 @@ namespace USBRelayScheduler
             {
                 if (Settings.Default.RelayForcedStates[i] == CheckState.Checked)
                 {
-                    relayDevice.SetRelay(i, true);
+                    if (!relayDevice.SetRelay(i, true)) break;
                 }
                 else
                 {
-                    relayDevice.SetRelay(i, false);
+                    if (!relayDevice.SetRelay(i, false)) break;
                 } 
             }
         }
 
         private void ToggleRelayForce(int relay, CheckState forceState)
         {
+            if (relayDevice == null) return;
             if (forceState == CheckState.Checked)
             {
                 Settings.Default.RelaySchedules[relay].enabled = false;
@@ -141,6 +171,7 @@ namespace USBRelayScheduler
                 {
                     this.Invoke(new MethodInvoker(delegate
                     {
+                        if (relayDevice == null) return;
                         if (relayDevice.GetRelayState(0))
                         {
                             buttonRelay1Status.Text = "ON";
@@ -196,12 +227,19 @@ namespace USBRelayScheduler
         }
 
         private void RefreshDevice()
-        {
-            relayStatusTimer.Elapsed -= CheckDeviceStatus;
-            relayDevice = null;
-            InitializeRelayDevice();
-            textBoxDeviceAddress.Text = relayDevice.GetSerialNumber();
-            relayStatusTimer.Elapsed += CheckDeviceStatus;
+        {   
+            if (relayDevice != null)
+            {
+                relayDevice.StopScheduleTimer();
+                relayDevice.Close();
+                relayDevice = null;
+            }
+            
+            if (InitializeRelayDevice())
+            {
+                textBoxDeviceAddress.Text = relayDevice.GetSerialNumber();
+                relayDevice.StartScheduleTimer();
+            }
         }
 
         private void ImportSettings()

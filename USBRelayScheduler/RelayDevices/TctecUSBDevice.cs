@@ -67,5 +67,9 @@ namespace USBRelayScheduler.RelayDevices
             }
             return true;
         }
+
+        public override void Close()
+        {
+        }
     }
 }
