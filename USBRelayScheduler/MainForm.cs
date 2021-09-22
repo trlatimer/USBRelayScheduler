@@ -37,6 +37,9 @@ namespace USBRelayScheduler
             PopulateForm();
         }
 
+        /// <summary>
+        /// Populates the fields and checkboxes on the form
+        /// </summary>
         private void PopulateForm()
         {
             if (relayDevice == null)
@@ -51,6 +54,10 @@ namespace USBRelayScheduler
             checkBoxRelay4ForceToggle.CheckState = Settings.Default.RelayForcedStates[3];
         }
 
+        /// <summary>
+        /// Attempts to connect to a Tctec Device then to a FTDI device if unable to find a Tctec device
+        /// </summary>
+        /// <returns></returns>
         private bool InitializeRelayDevice()
         {
             // Attempt to connect to a Tctec Device
@@ -68,6 +75,10 @@ namespace USBRelayScheduler
             return true;
         }
 
+        /// <summary>
+        /// Attempts to connect to a Tctec device
+        /// </summary>
+        /// <returns></returns>
         private RelayDeviceBase InitializeTctecDevice()
         {
             try
@@ -83,6 +94,10 @@ namespace USBRelayScheduler
             }
         }
 
+        /// <summary>
+        /// Attempts to connect to a FTDI device
+        /// </summary>
+        /// <returns></returns>
         private RelayDeviceBase InitializeFTDIDevice()
         {
             // Initialize a FTDI device
@@ -96,6 +111,9 @@ namespace USBRelayScheduler
             return tempDevice;
         }
 
+        /// <summary>
+        /// Resets each relay to the state stored in settings
+        /// </summary>
         private void ResetRelays()
         {
             if (relayDevice.GetSerialNumber() == null) return;
@@ -114,6 +132,11 @@ namespace USBRelayScheduler
             }
         }
 
+        /// <summary>
+        /// Forces the relay to ignore the schedule and adhere the current checkstate
+        /// </summary>
+        /// <param name="relay"></param>
+        /// <param name="forceState"></param>
         private void ToggleRelayForce(int relay, CheckState forceState)
         {
             if (relayDevice == null) return;
@@ -147,6 +170,10 @@ namespace USBRelayScheduler
             }
         }
 
+        /// <summary>
+        /// Resets the UI to match the forced states
+        /// </summary>
+        /// <param name="relay"></param>
         private void ResetForceState(int relay)
         {
             // Force the UI to match the forced state
@@ -158,6 +185,10 @@ namespace USBRelayScheduler
             else if (relay == 3) { checkBoxRelay4ForceToggle.Checked = false; }
         }
 
+        /// <summary>
+        /// Updates the UI when a relay name is changed
+        /// </summary>
+        /// <param name="relayIndex"></param>
         private void HandleRelayNamechange(int relayIndex)
         {
             if (relayIndex == 0) { Settings.Default.Relay1Name = menuTextBoxRelay1Name.Text; }
@@ -173,6 +204,11 @@ namespace USBRelayScheduler
             labelRelay4Name.Text = Settings.Default.Relay4Name + ":";
         }
 
+        /// <summary>
+        /// Checks the state of each relay and sets the UI relay indicators accordingly
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
         private void CheckDeviceStatus(Object source, System.Timers.ElapsedEventArgs e)
         {
             if (relayDevice == null) { return; }
@@ -240,6 +276,9 @@ namespace USBRelayScheduler
             relayStatusTimer.Elapsed += CheckDeviceStatus;
         }
 
+        /// <summary>
+        /// Disconnects the current device and attempts to reconnect
+        /// </summary>
         private void RefreshDevice()
         {   
             if (relayDevice != null)
@@ -258,6 +297,9 @@ namespace USBRelayScheduler
             }
         }
 
+        /// <summary>
+        /// Imports settings from an XML file
+        /// </summary>
         private void ImportSettings()
         {
             // Initialize the OpenFileDialog settings
@@ -310,6 +352,9 @@ namespace USBRelayScheduler
             }
         }
 
+        /// <summary>
+        /// Saves the current settings in an importable format
+        /// </summary>
         private void ExportSettings()
         {
             Settings.Default.Save();

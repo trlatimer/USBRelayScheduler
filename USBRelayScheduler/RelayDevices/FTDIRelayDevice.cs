@@ -15,11 +15,18 @@ namespace USBRelayScheduler.RelayDevices
 
         private readonly int[,] RELAYBYTES = new int[2, 4] { { 2, 8, 32, 128 }, { 253, 247, 223, 127 } };
 
+        /// <summary>
+        /// Creates a FTDI relay device and attempts to connect
+        /// </summary>
         public FTDIRelayDevice() : base()
         {
             InitializeDevice();
         }
 
+        /// <summary>
+        /// Checks if we are connected to an FTDI device
+        /// </summary>
+        /// <returns></returns>
         public bool CheckDeviceStatus()
         {
             FTDI.FT_STATUS connected = FTDIDevice.GetSerialNumber(out serialNumber);
@@ -35,6 +42,11 @@ namespace USBRelayScheduler.RelayDevices
             FTDIDevice.Close();
         }
 
+        /// <summary>
+        /// Attempts to open the serial port, reset the device, and set the configuration
+        /// </summary>
+        /// <param name="serial"></param>
+        /// <returns></returns>
         private bool InitializeDevice(string serial = "")
         {
             FTDI.FT_STATUS deviceStatus;

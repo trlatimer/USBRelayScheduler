@@ -15,6 +15,9 @@ namespace USBRelayScheduler.RelayDevices
 
         private readonly byte[] RELAYBYTES = { 0x01, 0x02, 0x04, 0x08 };
 
+        /// <summary>
+        /// Constructor for Tctec Relay device, inherits RelayDeviceBase
+        /// </summary>
         public TctecUSBDevice() : base()
         {
             try
@@ -66,6 +69,7 @@ namespace USBRelayScheduler.RelayDevices
             return true;
         }
 
+        // Closes the port - CUrrently does nothing for Tctec Devices
         public override void Close()
         { // Empty because we have no access to close this kind of device, handles closing internally
         }

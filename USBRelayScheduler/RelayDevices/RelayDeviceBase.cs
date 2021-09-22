@@ -15,11 +15,30 @@ namespace USBRelayScheduler.RelayDevices
             InitializeSettings();
         }
 
+        /// <summary>
+        /// Returns the current state of an individual relay
+        /// </summary>
+        /// <param name="relay"></param>
         public abstract bool GetRelayState(int relay);
+        /// <summary>
+        /// Returns the serial number of the current device
+        /// </summary>
         public abstract string GetSerialNumber();
+        /// <summary>
+        /// Attempts to set a specific relay on or off
+        /// </summary>
+        /// <param name="relay"></param>
+        /// <param name="on"></param>
+        /// <returns></returns>
         public abstract bool SetRelay(int relay, bool on);
+        /// <summary>
+        /// Closed the port for the current device
+        /// </summary>
         public abstract void Close();
 
+        /// <summary>
+        /// Checks the schedule for each relay and sets the relay on/off accordingly
+        /// </summary>
         public void CheckRelaySchedules()
         {
             TimeSpan currentTime = DateTime.Now.TimeOfDay;
@@ -56,6 +75,9 @@ namespace USBRelayScheduler.RelayDevices
             }
         }
 
+        /// <summary>
+        /// Creates default values for settings if they don't yet exist
+        /// </summary>
         private static void InitializeSettings()
         {
             if (Settings.Default.RelaySchedules == null)
@@ -75,6 +97,9 @@ namespace USBRelayScheduler.RelayDevices
             Settings.Default.Save();
         }
 
+        /// <summary>
+        /// Instantiates and starts the timer to check if we need to turn relays on or off
+        /// </summary>
         public void StartScheduleTimer()
         {
             relayScheduleTimer = new System.Windows.Forms.Timer();
@@ -84,6 +109,9 @@ namespace USBRelayScheduler.RelayDevices
             relayScheduleTimer.Start();
         }
 
+        /// <summary>
+        /// Stops the timer that checks relay schedules and disposes of it
+        /// </summary>
         public void StopScheduleTimer()
         {   
             if (relayScheduleTimer != null)
@@ -95,6 +123,11 @@ namespace USBRelayScheduler.RelayDevices
             }
         }
 
+        /// <summary>
+        /// Checks the current state of relays and if the relay should be on/off and sets it accordingly
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RelayScheduleTimer_Tick(object sender, EventArgs e)
         {
             relayScheduleTimer.Tick -= RelayScheduleTimer_Tick;
