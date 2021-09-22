@@ -12,14 +12,7 @@ namespace USBRelayScheduler.RelayDevices
 
         public RelayDeviceBase()
         {
-            try
-            {
-                InitializeSettings();
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                MessageBox.Show("Unable to initialize settings and start timers, please reconnect and try again.", "Failed to Initialize", MessageBoxButtons.OK);
-            }
+            InitializeSettings();
         }
 
         public abstract bool GetRelayState(int relay);
@@ -35,11 +28,13 @@ namespace USBRelayScheduler.RelayDevices
             if (Settings.Default.RelaySchedules == null) return;
             List<RelaySchedule> relaySchedules = Settings.Default.RelaySchedules;
 
+            // Iterate through each schedule
             for (int i = 0; i <= relaySchedules.Count - 1; i++)
             {
                 if (relaySchedules[i] == null || relaySchedules[i].schedules[currentDay] == null) continue;
                 if (!relaySchedules[i].enabled) continue;
 
+                // If we are within the scheduled time and the state doesn't match, attempt to set the relay
                 if (relaySchedules[i].schedules[currentDay].Enabled)
                 {
                     TimeSpan startTime = relaySchedules[i].schedules[currentDay].StartTime.TimeOfDay;
@@ -53,9 +48,10 @@ namespace USBRelayScheduler.RelayDevices
                         if (!SetRelay(i, false)) break;
                     }
                 }
-                else
+                else // Not a scheduled day
                 {
-                    if (!SetRelay(i, false)) break;
+                    if (!GetRelayState(i)) continue; // Already off, move to next relay
+                    if (!SetRelay(i, false)) break;  // We are not scheduled to be on, need to turn off
                 }
             }
         }
