@@ -274,7 +274,7 @@ namespace USBRelayScheduler
             this.checkBoxRelay4ForceToggle.TabIndex = 20;
             this.checkBoxRelay4ForceToggle.ThreeState = true;
             this.checkBoxRelay4ForceToggle.UseVisualStyleBackColor = true;
-            this.checkBoxRelay4ForceToggle.CheckedChanged += new System.EventHandler(this.checkBoxRelay4ForceOn_CheckedStateChanged);
+            this.checkBoxRelay4ForceToggle.CheckStateChanged += new System.EventHandler(this.checkBoxRelay4ForceOn_CheckedStateChanged);
             // 
             // menuStrip1
             // 

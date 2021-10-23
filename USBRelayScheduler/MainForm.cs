@@ -14,25 +14,39 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using USBRelayScheduler.Resources;
+using USBRelayScheduler.RelayDevices;
 
 namespace USBRelayScheduler
 {
     public partial class MainForm : Form
     {
-        private TctecUSBDevice relayDevice;
+        private RelayDeviceBase relayDevice;
         private System.Timers.Timer relayStatusTimer;
 
         public MainForm()
         {
             InitializeComponent();
-            relayDevice = new TctecUSBDevice();
-            ResetRelays();
+            // Attempt to initialize a relay device0000
+            if (InitializeRelayDevice())
+            {
+                // If we are successful, reset the relays and start checking the schedules
+                ResetRelays();
+                relayDevice.StartScheduleTimer();
+            }
+            
             PopulateForm();
         }
 
+        /// <summary>
+        /// Populates the fields and checkboxes on the form
+        /// </summary>
         private void PopulateForm()
         {
-            textBoxDeviceAddress.Text = relayDevice.GetSerialNumber();
+            if (relayDevice == null)
+                textBoxDeviceAddress.Text = "";
+            else
+                textBoxDeviceAddress.Text = relayDevice.GetSerialNumber();
+
             if (Settings.Default.RelayForcedStates == null) { return; }
             checkBoxRelay1ForceToggle.CheckState = Settings.Default.RelayForcedStates[0];
             checkBoxRelay2ForceToggle.CheckState = Settings.Default.RelayForcedStates[1];
@@ -40,24 +54,93 @@ namespace USBRelayScheduler
             checkBoxRelay4ForceToggle.CheckState = Settings.Default.RelayForcedStates[3];
         }
 
+        /// <summary>
+        /// Attempts to connect to a Tctec Device then to a FTDI device if unable to find a Tctec device
+        /// </summary>
+        /// <returns></returns>
+        private bool InitializeRelayDevice()
+        {
+            // Attempt to connect to a Tctec Device
+            relayDevice = InitializeTctecDevice();
+            if (relayDevice == null)
+            {
+                // If unable to connect to Tctec, try connecting as FTDI device
+                relayDevice = InitializeFTDIDevice();
+                if (relayDevice == null)
+                {
+                    MessageBox.Show("Unable to locate a relay device. Please reconnect and try again.");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Attempts to connect to a Tctec device
+        /// </summary>
+        /// <returns></returns>
+        private RelayDeviceBase InitializeTctecDevice()
+        {
+            try
+            {
+                // Attempt to get the serial number of the first relay, if no relay then it throws an ArgumentOutOfRangeException
+                string serial = TctecUSB4.TctecUSB4.getSerialNumbers()[0].ToString();
+                // If we did not throw an exception, a Tctec Device exists so we initialize it
+                return new TctecUSBDevice();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Attempts to connect to a FTDI device
+        /// </summary>
+        /// <returns></returns>
+        private RelayDeviceBase InitializeFTDIDevice()
+        {
+            // Initialize a FTDI device
+            FTDIRelayDevice tempDevice = new FTDIRelayDevice();
+
+            // Check the connection status, return the new device if successful
+            if (!tempDevice.CheckDeviceStatus())
+            {
+                return null;
+            }
+            return tempDevice;
+        }
+
+        /// <summary>
+        /// Resets each relay to the state stored in settings
+        /// </summary>
         private void ResetRelays()
         {
             if (relayDevice.GetSerialNumber() == null) return;
+
+            // Iterate through each relay and set each according to the respective state in Settings
             for (int i = 0; i <= 3; i++)
             {
                 if (Settings.Default.RelayForcedStates[i] == CheckState.Checked)
                 {
-                    relayDevice.SetRelay(i, true);
+                    if (!relayDevice.SetRelay(i, true)) break; // If unable to set relay, stop trying as we have no connection
                 }
                 else
                 {
-                    relayDevice.SetRelay(i, false);
+                    if (!relayDevice.SetRelay(i, false)) break;
                 } 
             }
         }
 
+        /// <summary>
+        /// Forces the relay to ignore the schedule and adhere the current checkstate
+        /// </summary>
+        /// <param name="relay"></param>
+        /// <param name="forceState"></param>
         private void ToggleRelayForce(int relay, CheckState forceState)
         {
+            if (relayDevice == null) return;
+            // Set the forced state of the relay
             if (forceState == CheckState.Checked)
             {
                 Settings.Default.RelaySchedules[relay].enabled = false;
@@ -87,8 +170,13 @@ namespace USBRelayScheduler
             }
         }
 
+        /// <summary>
+        /// Resets the UI to match the forced states
+        /// </summary>
+        /// <param name="relay"></param>
         private void ResetForceState(int relay)
         {
+            // Force the UI to match the forced state
             Settings.Default.RelaySchedules[relay].enabled = true;
             Settings.Default.RelayForcedStates[relay] = CheckState.Unchecked;
             if (relay == 0) { checkBoxRelay1ForceToggle.Checked = false; }
@@ -97,6 +185,10 @@ namespace USBRelayScheduler
             else if (relay == 3) { checkBoxRelay4ForceToggle.Checked = false; }
         }
 
+        /// <summary>
+        /// Updates the UI when a relay name is changed
+        /// </summary>
+        /// <param name="relayIndex"></param>
         private void HandleRelayNamechange(int relayIndex)
         {
             if (relayIndex == 0) { Settings.Default.Relay1Name = menuTextBoxRelay1Name.Text; }
@@ -112,6 +204,11 @@ namespace USBRelayScheduler
             labelRelay4Name.Text = Settings.Default.Relay4Name + ":";
         }
 
+        /// <summary>
+        /// Checks the state of each relay and sets the UI relay indicators accordingly
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
         private void CheckDeviceStatus(Object source, System.Timers.ElapsedEventArgs e)
         {
             if (relayDevice == null) { return; }
@@ -123,6 +220,8 @@ namespace USBRelayScheduler
                 {
                     this.Invoke(new MethodInvoker(delegate
                     {
+                        if (relayDevice == null) return;
+                        // Get each realy state and set the respective UI indicators
                         if (relayDevice.GetRelayState(0))
                         {
                             buttonRelay1Status.Text = "ON";
@@ -177,17 +276,33 @@ namespace USBRelayScheduler
             relayStatusTimer.Elapsed += CheckDeviceStatus;
         }
 
+        /// <summary>
+        /// Disconnects the current device and attempts to reconnect
+        /// </summary>
         private void RefreshDevice()
-        {
-            relayStatusTimer.Elapsed -= CheckDeviceStatus;
-            relayDevice = null;
-            relayDevice = new TctecUSBDevice();
-            textBoxDeviceAddress.Text = relayDevice.GetSerialNumber();
-            relayStatusTimer.Elapsed += CheckDeviceStatus;
+        {   
+            if (relayDevice != null)
+            {
+                // Stop checking for schedules to prevent attempts to set a relay while refreshing
+                relayDevice.StopScheduleTimer();
+                relayDevice.Close();
+                relayDevice = null;
+            }
+            
+            // Attempt to initialize the relays again
+            if (InitializeRelayDevice())
+            {
+                textBoxDeviceAddress.Text = relayDevice.GetSerialNumber();
+                relayDevice.StartScheduleTimer();
+            }
         }
 
+        /// <summary>
+        /// Imports settings from an XML file
+        /// </summary>
         private void ImportSettings()
         {
+            // Initialize the OpenFileDialog settings
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Config files(*.config) | *.config; *.config*; config | Text files(*.txt) | *.txt | All files (*.*)|*.*";
             openFileDialog.Title = "Import Settings";
@@ -195,9 +310,12 @@ namespace USBRelayScheduler
             openFileDialog.DefaultExt = "config";
             openFileDialog.CheckFileExists = true;
             openFileDialog.CheckPathExists = true;
+
+            // Display the OpenFileDialog
             DialogResult openResult = openFileDialog.ShowDialog(this);
             if (openResult == DialogResult.OK)
             {
+                // Check if the file exists
                 if (!File.Exists(openFileDialog.FileName))
                 {
                     MessageBox.Show("Could not open selected file. Please try again.");
@@ -207,6 +325,7 @@ namespace USBRelayScheduler
                 var appSettings = Settings.Default;
                 try
                 {
+                    // Grab the existing settings
                     var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
                     string appSettingsXmlName = Settings.Default.Context["GroupName"].ToString();
 
@@ -215,6 +334,7 @@ namespace USBRelayScheduler
                     // Get the whole XML inside the settings node
                     var settings = import.XPathSelectElements("//" + appSettingsXmlName);
 
+                    // Set the current settings to the imported settings
                     config.GetSectionGroup("userSettings")
                         .Sections[appSettingsXmlName]
                         .SectionInformation
@@ -232,15 +352,22 @@ namespace USBRelayScheduler
             }
         }
 
+        /// <summary>
+        /// Saves the current settings in an importable format
+        /// </summary>
         private void ExportSettings()
         {
             Settings.Default.Save();
+            // Grab the existing settings
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+            // Initialize the SaveFileDialog settings
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Title = "Export Settings";
             saveFileDialog.DefaultExt = ".config";
             saveFileDialog.Filter = "Config files(*.config) | *.config | Text files(*.txt) | *.txt";
             saveFileDialog.FileName = "userexport";
+
+            // Display the SaveFileDialog
             DialogResult saveResult = saveFileDialog.ShowDialog();
             if (saveResult == DialogResult.OK)
             {
@@ -250,6 +377,7 @@ namespace USBRelayScheduler
                     string exportPath = saveFileDialog.FileName;
                     try
                     {
+                        // Save the existing settings to the specified path
                         config.SaveAs(exportPath);
                     }
                     catch (Exception ex)
@@ -272,10 +400,12 @@ namespace USBRelayScheduler
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            // Start checking the relays
             relayStatusTimer = new System.Timers.Timer(10);
             relayStatusTimer.Elapsed += CheckDeviceStatus;
             relayStatusTimer.Start();
 
+            // Initialize the UI to match settings
             labelRelay1Name.Text = Settings.Default.Relay1Name + ":";
             labelRelay2Name.Text = Settings.Default.Relay2Name + ":";
             labelRelay3Name.Text = Settings.Default.Relay3Name + ":";
@@ -285,7 +415,8 @@ namespace USBRelayScheduler
             menuTextBoxRelay2Name.Text = Settings.Default.Relay2Name;
             menuTextBoxRelay3Name.Text = Settings.Default.Relay3Name;
             menuTextBoxRelay4Name.Text = Settings.Default.Relay4Name;
-
+            
+            // Subscribe events
             menuTextBoxRelay1Name.LostFocus += MenuTextBoxRelay1Name_LostFocus;
             menuTextBoxRelay2Name.LostFocus += MenuTextBoxRelay2Name_LostFocus;
             menuTextBoxRelay3Name.LostFocus += MenuTextBoxRelay3Name_LostFocus;
