@@ -88,9 +88,15 @@ namespace USBRelayScheduler
                 // If we did not throw an exception, a Tctec Device exists so we initialize it
                 return new TctecUSBDevice();
             }
-            catch (ArgumentOutOfRangeException)
+            catch (Exception ex)
             {
-                return null;
+                if (ex is ArgumentOutOfRangeException || ex is DllNotFoundException)
+                    return null;
+                else
+                {
+                    MessageBox.Show("We encountered an exception: " + ex.Message);
+                    return null;
+                }      
             }
         }
 
